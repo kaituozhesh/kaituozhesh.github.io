@@ -2731,7 +2731,8 @@ pre .css ~ * .id, pre .id {
 
 .tooltip-left .tooltip-content {
     position: absolute;
-    background: rgba(36, 193, 246, 1);
+    background: rgba(63, 63, 63, 1);
+    border:1px solid #2f2f2f;
     z-index: 9999;
     width: 200px;
     bottom: 50%;
