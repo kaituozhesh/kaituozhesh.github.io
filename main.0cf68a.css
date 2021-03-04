@@ -674,8 +674,26 @@ i {
     content: "\E680"
 }
 
-.icon-category:before {
-    content: "\E605"
+.icon-category1:before {
+    content: "\E605 博客主页 "
+}
+.icon-category1 {
+	display: inline-block;
+	width: 40%;
+}
+.icon-category2:before {
+    content: "\E605 章节目录 "
+}
+.icon-category2 {
+	display: inline-block;
+	width: 40%;
+}
+.icon-category3:before {
+    content: "<"
+}
+.icon-category3 {
+	display: inline-block;
+	width: 10%;
 }
 
 .icon-douban:before {
@@ -2581,7 +2599,7 @@ pre .css ~ * .id, pre .id {
     top: 0px;
     left: 0px;
     cursor: pointer;
-    width: 40px;
+    width: 300px;
     height: 40px;
     /*opacity: .8*/
 }
