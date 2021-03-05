@@ -814,6 +814,8 @@ body {
 }
 .left-col .overlay a {
 	color: white;
+	display: inline-block;
+    padding-top: 10px;
 }
 
 .left-col .intrude-less {
@@ -1007,7 +1009,7 @@ body {
 }
 
 .article-entry code {
-    background: #464741;
+    background: #464745;
     padding: 0 .3em;
     border: none
 }
@@ -1344,10 +1346,14 @@ pre .css ~ * .id, pre .id {
 .tagcloud-ctn .tagcloud-global .tab-post-types .tab-post-type:nth-child(5) .post-type-icon {
     background: #dd765d
 }
+#header .header-ewm {
+	width: 100%;
+	clear: both;
+}
 
 #header .header-nav {
     width: 100%;
-    position: absolute;
+    /*position: absolute;*/
     transition: -webkit-transform .3s ease-in;
     transition: transform .3s ease-in;
     transition: transform .3s ease-in, -webkit-transform .3s ease-in
@@ -1378,7 +1384,7 @@ pre .css ~ * .id, pre .id {
     transition: .3s;
     text-align: center;
     color: #fff;
-    opacity: .7;
+    /*opacity: .7;*/
     width: 28px;
     height: 28px;
     line-height: 26px
@@ -1416,8 +1422,8 @@ pre .css ~ * .id, pre .id {
 }
 
 #header .header-nav .social a.github {
-    background: #afb6ca;
-    border: 1px solid #afb6ca
+    /*background: #afb6ca;*/
+    /*border: 1px solid #afb6ca*/
 }
 
 #header .header-nav .social a.github:hover {
@@ -2185,13 +2191,15 @@ pre .css ~ * .id, pre .id {
 }
 
 .article-entry li code, .article-entry p code {
-    padding: 1px 3px;
+    padding: 2px 5px;
     margin: 0 3px;
-    background: #ddd;
-    border: 1px solid #ccc;
+    /*background: #ddd;*/
+    /*border: 1px solid #ccc;*/
     font-family: Menlo, Monaco, Andale Mono, lucida console, Courier New, monospace;
     word-wrap: break-word;
-    font-size: 14px
+    font-size: 14px;
+    color: #FF8C00;
+    border-radius: 5px;
 }
 
 .article-entry blockquote {
@@ -2256,7 +2264,7 @@ pre .css ~ * .id, pre .id {
 .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6 {
     margin-top: 20px;
     font-weight: 700;
-    color: #574c4c;
+    color: #3CB371;
     padding-bottom: 5px;
     border-bottom: 1px solid #ddd
 }
@@ -2963,7 +2971,9 @@ pre .css ~ * .id, pre .id {
     }
 
     #mobile-nav {
-        display: block
+        display: block;
+        background-image: url(./img/mobileback.jpg);
+        padding-bottom: 20px;
     }
 
     .body-wrap {
@@ -3126,6 +3136,9 @@ pre .css ~ * .id, pre .id {
         border: 0;
         font-size: 16px;
         color: #555
+    }
+    .article .article-inner {
+		padding: 10px 20px;
     }
 
     .article .article-more-link {
@@ -3299,7 +3312,7 @@ pre .css ~ * .id, pre .id {
         margin: 0;
         position: relative;
         z-index: 2;
-        color: #424242
+        color: #FFF
     }
 
     #mobile-nav .overlay {
@@ -3307,7 +3320,7 @@ pre .css ~ * .id, pre .id {
         position: absolute;
         width: 100%;
         z-index: 2;
-        background: #4d4d4d
+        /*background: #4d4d4d*/
     }
 
     #mobile-nav #header {

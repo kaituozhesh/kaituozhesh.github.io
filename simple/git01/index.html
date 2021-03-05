@@ -127,6 +127,9 @@
 		        
 			</div>
 		</nav>
+		<nav class="header-ewm">
+			<img src="/img/logo.jpg" />
+		</nav>
 	</header>		
 </div>
 
@@ -134,7 +137,7 @@
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
-  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+  	<div class="overlay js-overlay" /*style="background: #4d4d4d*/"></div>
 	<div class="btnctn js-mobile-btnctn">
   		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
 	</div>
@@ -616,13 +619,13 @@
         
         
         <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category1"></i>
-            <i class="icon-font icon-category2"></i>
-            <i class="icon-font icon-category3"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='none'"class="icon-font icon-category1"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='block'" class="icon-font icon-category2"></i>
+            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
             <div class="tooltip tooltip-east">
                 <span class="tooltip-item">
                 </span>
-                <span class="tooltip-content">
+                <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
                     <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">Git配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E3%80%81%E6%92%A4%E9%94%80%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">添加、删除、撤销文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-number">4.</span> <span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-number">6.</span> <span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B"><span class="toc-number">7.</span> <span class="toc-text">信息查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">8.</span> <span class="toc-text">远程同步</span></a></li></ol>
                     </div>

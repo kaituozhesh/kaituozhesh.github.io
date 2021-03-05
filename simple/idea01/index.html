@@ -135,6 +135,9 @@
 		        
 			</div>
 		</nav>
+		<nav class="header-ewm">
+			<img src="/img/logo.jpg" />
+		</nav>
 	</header>		
 </div>
 
@@ -142,7 +145,7 @@
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
-  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+  	<div class="overlay js-overlay" /*style="background: #4d4d4d*/"></div>
 	<div class="btnctn js-mobile-btnctn">
   		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
 	</div>
@@ -437,13 +440,13 @@
         
         
         <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category1"></i>
-            <i class="icon-font icon-category2"></i>
-            <i class="icon-font icon-category3"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='none'"class="icon-font icon-category1"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='block'" class="icon-font icon-category2"></i>
+            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
             <div class="tooltip tooltip-east">
                 <span class="tooltip-item">
                 </span>
-                <span class="tooltip-content">
+                <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
                     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IntelliJ-IDEA%E5%AE%89%E8%A3%85%E7%A0%B4%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">IntelliJ IDEA安装破解步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDIntelliJ-IDEA"><span class="toc-number">1.0.1.</span> <span class="toc-text">1、官网下载IntelliJ IDEA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E9%80%89%E6%8B%A9%E5%AF%B9%E5%BA%94%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.0.2.</span> <span class="toc-text">2、选择对应的操作系统下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E8%BF%90%E8%A1%8C%E5%AE%89%E8%A3%85%E5%8C%85%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">1.0.3.</span> <span class="toc-text">3、运行安装包进行安装</span></a></li></ol></li></ol></li></ol>
                     </div>

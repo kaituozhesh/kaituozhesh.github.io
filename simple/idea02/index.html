@@ -129,6 +129,9 @@
 		        
 			</div>
 		</nav>
+		<nav class="header-ewm">
+			<img src="/img/logo.jpg" />
+		</nav>
 	</header>		
 </div>
 
@@ -136,7 +139,7 @@
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
-  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+  	<div class="overlay js-overlay" /*style="background: #4d4d4d*/"></div>
 	<div class="btnctn js-mobile-btnctn">
   		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
 	</div>
@@ -413,13 +416,13 @@
         
         
         <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category1"></i>
-            <i class="icon-font icon-category2"></i>
-            <i class="icon-font icon-category3"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='none'"class="icon-font icon-category1"></i>
+            <i onclick="javascript:document.getElementById('content-menu').style.display='block'" class="icon-font icon-category2"></i>
+            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
             <div class="tooltip tooltip-east">
                 <span class="tooltip-item">
                 </span>
-                <span class="tooltip-content">
+                <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
                     请先输入密码
                     </div>
