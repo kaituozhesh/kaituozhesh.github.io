@@ -2359,11 +2359,15 @@ pre .css ~ * .id, pre .id {
 }
 
 .article-card .article-card-img {
-	display: inline-block;
+	display: flex;
+	align-items: center;
 	margin-right: 10px;
-	width: 100px;
-	height: 100px; 
 }
+.article-card-img img {
+	width: 100px;
+	height: 100px
+}
+
 .article-card .article-card-content {
 	display: inline-block;
 }
