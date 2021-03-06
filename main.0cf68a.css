@@ -709,7 +709,8 @@ i {
 }
 
 .icon-zhihu:before {
-    content: "\E61B"
+    content: "\E61B";
+    width:10px;
 }
 
 .icon-linkedin:before {
@@ -1232,19 +1233,19 @@ pre .css ~ * .id, pre .id {
 }
 
 .tagcloud a.color4 {
-    background: #94635c
+    background: #e23794
 }
 
 .tagcloud a.color4:before {
-    border-right-color: #94635c
+    border-right-color: #e23794
 }
 
 .tagcloud a.color5 {
-    background: #7b5d5f
+    background: #f0ad4e
 }
 
 .tagcloud a.color5:before {
-    border-right-color: #7b5d5f
+    border-right-color: #f0ad4e
 }
 
 .article-tag-list .article-tag-list-item {
@@ -1595,8 +1596,7 @@ pre .css ~ * .id, pre .id {
     position: relative;
     margin: 0 30px;
     padding-right: 60px;
-    border-bottom: 1px solid #eee;
-    background: #fff
+    border-bottom: 2px solid #2f2f2f;
 }
 
 .archives-wrap:first-child {
@@ -1633,9 +1633,9 @@ pre .css ~ * .id, pre .id {
 .archives .archive-article {
     margin-left: 200px;
     padding: 20px 0;
-    border-bottom: 1px solid #eee;
-    border-top: 1px solid #fff;
-    position: relative
+    border-bottom: 1px solid #2f2f2f;
+    border-top: 1px solid #2f2f2f;
+    position: relative;
 }
 
 .archives .archive-article:first-child {
@@ -1648,7 +1648,7 @@ pre .css ~ * .id, pre .id {
 
 .archives .archive-article-title {
     font-size: 16px;
-    color: #333;
+    color: #999;
     transition: color .3s
 }
 
@@ -2099,7 +2099,7 @@ pre .css ~ * .id, pre .id {
 }
 
 .article-info-index.article-info {
-	margin: 30px 30px 0 30px;
+	margin: 30px 30px 30px 30px;
     /*padding-top: 20px;
     margin: 30px 7.6923% 0;
     min-height: 72px;*/
@@ -2113,7 +2113,7 @@ pre .css ~ * .id, pre .id {
 }
 
 .article-inner p {
-    margin: 0 0 1.75em
+    /*margin: 0 0 1.75em*/
 }
 
 .article-inner {
@@ -2429,7 +2429,6 @@ pre .css ~ * .id, pre .id {
 }
 
 .share-icons a {
-    border: 1px solid #fff;
     border-radius: 50%;
     display: -moz-inline-stack;
     display: inline-block;
