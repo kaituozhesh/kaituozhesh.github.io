@@ -675,11 +675,14 @@ i {
 }
 
 .icon-category1:before {
-    content: "\E605 博客主页 "
+    content: "\E6BB 博客主页 "
 }
 .icon-category1 {
 	display: inline-block;
 	width: 40%;
+}
+.icon-category1:focus {
+	background-color: #fff;
 }
 .icon-category2:before {
     content: "\E605 章节目录 "
@@ -689,7 +692,7 @@ i {
 	width: 40%;
 }
 .icon-category3:before {
-    content: "<"
+    content: "\E64E"
 }
 .icon-category3 {
 	display: inline-block;
@@ -2365,7 +2368,8 @@ pre .css ~ * .id, pre .id {
 }
 .article-card-img img {
 	width: 100px;
-	height: 100px
+	height: 100px;
+	max-width: 100px;
 }
 
 .article-card .article-card-content {
@@ -2394,6 +2398,19 @@ pre .css ~ * .id, pre .id {
 
 #article-nav #article-nav-older {
     float: right
+}
+.comments{
+	margin:30px;
+	padding:10px;
+	background:#3f3f3f
+}
+
+@media screen and (max-width:800px){
+	.comments{
+		margin:auto;
+		padding:10px;
+		background: #3f3f3f
+	}
 }
 
 #disqus_thread, #gitment-ctn, #SOHUCS, .cloud-tie-wrapper, .duoshuo {
@@ -2680,7 +2697,6 @@ pre .css ~ * .id, pre .id {
 
 .toc-container.tooltip-left {
     background: #ccc;
-    /*margin-top: 10px;*/
     transition: .3s
 }
 
