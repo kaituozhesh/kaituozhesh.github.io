@@ -675,28 +675,35 @@ i {
 }
 
 .icon-category1:before {
-    content: "\E6BB 博客主页 "
+    content: "\E6BB 博客主页 ";
 }
 .icon-category1 {
+	margin:0;
+	padding:0;
 	display: inline-block;
-	width: 40%;
+	width: 42%;
+	text-align: center;
 }
-.icon-category1:focus {
-	background-color: #fff;
-}
+
 .icon-category2:before {
     content: "\E605 章节目录 "
 }
 .icon-category2 {
+	margin:0;
+	padding:0;
 	display: inline-block;
-	width: 40%;
+	width: 42%;
+	text-align: center;
 }
+
+
 .icon-category3:before {
     content: "\E64E"
 }
 .icon-category3 {
 	display: inline-block;
 	width: 10%;
+	text-align: center;
 }
 
 .icon-douban:before {
@@ -2697,7 +2704,9 @@ pre .css ~ * .id, pre .id {
 
 .toc-container.tooltip-left {
     background: #ccc;
-    transition: .3s
+    transition: .3s;
+    border-bottom: 1px solid orange;
+    text-align:left;
 }
 
 .toc-container.tooltip-left:hover {
@@ -2705,7 +2714,7 @@ pre .css ~ * .id, pre .id {
 }
 
 .toc-container.tooltip-left .icon-font {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 40px;
     color: #fff
 }
