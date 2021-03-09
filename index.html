@@ -105,7 +105,7 @@
 			</ul>
 		</nav>
 		<nav>
-			<a>总文章数 2</a>
+			<a>总文章数 4</a>
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -465,6 +465,317 @@
 
 
   
+    <article id="post-IDEA/11、IntelliJ IDEA实战篇：debug" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/simple/idea11/">11-IntelliJ IDEA实战篇：debug</a>
+    </h1>
+  
+
+	<!--显示阅读次数-->
+	
+	<!--显示阅读次数完毕-->
+	
+        <a href="/simple/idea11/" class="archive-article-date">
+  	<time datetime="2021-02-25T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
+</a>
+      	
+      </header>
+    
+<div align="center" class="post-count">
+    字数：754字 | 预计阅读时长：2分钟
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IntelliJ-IDEA-Debug实战"><a href="#IntelliJ-IDEA-Debug实战" class="headerlink" title="IntelliJ IDEA Debug实战"></a>IntelliJ IDEA Debug实战</h2><p><img src="http://im.jinglingmao.shop/image-20210227131932747.png" alt="image-20210227131932747"></p>
+<p>① 断点：在左边行号栏单击左键，或者快捷键Ctrl+F8 打上/取消断点。</p>
+<p>② 调试按钮：调试的主要功能就对应着这几个按钮，鼠标悬停在按钮上可以查看对应的快捷键。在菜单栏Run里可以找到同样的对应的功能</p>
+<p>③ 服务按钮：可以在这里关闭/启动服务，设置断点等。</p>
+<p>④ 方法调用栈：这里显示了该线程调试所经过的所有方法，勾选右上角的[Show All Frames]按钮，就不会显示其它类库的方法了，否则这里会有一大堆的方法。</p>
+<p>⑤ Variables：在变量区可以查看当前断点之前的当前方法内的变量。</p>
+<p>⑥ Watches：查看变量，可以将Variables区中的变量拖到Watches中查看 </p>
+<h3 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h3><blockquote>
+<p>断点可以分为普通断点、条件断点、多线程断点。</p>
+</blockquote>
+<h4 id="条件断点"><a href="#条件断点" class="headerlink" title="条件断点"></a>条件断点</h4><blockquote>
+<p>通过设置断点条件，在满足条件时，才会停在断点处，否则直接往后运行。</p>
+</blockquote>
+<p>操作：在普通断点的小红点上右键就会出现如下对话框，在Condition中输入条件即可。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308141024038.png" alt="image-20210308141024038">条件断点右下角是有一个小问号的。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308140919372.png" alt="image-20210308140919372"></p>
+<p>注：只有当i == 300条件成立的时候断点才会生效。</p>
+<h4 id="多线程断点"><a href="#多线程断点" class="headerlink" title="多线程断点"></a>多线程断点</h4><blockquote>
+<p>在多线程环境下调试代码，需要把断点挂起级别修改为Thread。</p>
+</blockquote>
+<p><img src="http://im.jinglingmao.shop/image-20210308141329798.png" alt="image-20210308141329798"></p>
+<h3 id="调试按钮"><a href="#调试按钮" class="headerlink" title="调试按钮"></a>调试按钮</h3><p><img src="http://im.jinglingmao.shop/image-20210308135037804.png" alt="image-20210308135037804"></p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135205160.png" alt="image-20210308135205160"></td>
+<td>（Alt + F10）：如果你的光标在其他行或其他页面，点击这个按钮可以跳转到当前代码执行的行。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135229945.png" alt="image-20210308135229945"></td>
+<td>（F8）：步过，一行一行得往下走，如果当前行是一个方法，不会进入方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135303736.png" alt="image-20210308135303736"></td>
+<td>（F7）：步入，如果当前行是方法，会进入方法内部，一般用于进入自定义方法，不会进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135310729.png" alt="image-20210308135310729"></td>
+<td>（Alt + Shift + F7）：强制不如，能进入任何方法，查看顶层源代码的时候可以用这个进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135320936.png" alt="image-20210308135320936"></td>
+<td>（Shift + F8）：步出，从步入的方法内退出到方法调用处，此时方法已经执行完毕，只是还没有完成赋值。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135332761.png" alt="image-20210308135332761"></td>
+<td>回退断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135343831.png" alt="image-20210308135343831"></td>
+<td>（Alt + F9）：运行到光标处，可以将光标定位到你需要查看的那一行，然后使用这个功能，代码会运行至光标行，而不需要打断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135351047.png" alt="image-20210308135351047"></td>
+<td>（Alt + F8）：计算表达式。</td>
+</tr>
+</tbody></table>
+<p>唯一需要演示的可能就是计算表达式了。</p>
+<p>比如：result是调用某个方法的返回值，这时候我们可以通过计算表达式改变变量的值，就可以很方便的测试各种返回值的执行结果了。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308141938794.png" alt="image-20210308141938794"></p>
+<p>计算表达式中不仅能修改变量值，还能自定义变量，调用方法自定义方法等。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308142225078.png" alt="image-20210308142225078"></p>
+<h3 id="服务按钮"><a href="#服务按钮" class="headerlink" title="服务按钮"></a>服务按钮</h3><table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142556539.png" alt="image-20210308142556539"></td>
+<td>重新运行程序。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142615333.png" alt="image-20210308142615333"></td>
+<td>跳到下一个断点处。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142633781.png" alt="image-20210308142633781"></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142645397.png" alt="image-20210308142645397"></td>
+<td>停止服务。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142659381.png" alt="image-20210308142659381"></td>
+<td>查看所有断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142717973.png" alt="image-20210308142717973"></td>
+<td>让所有断点失效，断点颜色会变成灰色。</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag1</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag2</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag3</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/simple/idea11/">展开全文 >></a>
+        </p>
+      
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-IDEA/12、IntelliJ IDEA实战篇：码出高效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/simple/idea12/">12、IntelliJ IDEA实战篇：码出高效.md</a>
+    </h1>
+  
+
+	<!--显示阅读次数-->
+	
+	<!--显示阅读次数完毕-->
+	
+        <a href="/simple/idea12/" class="archive-article-date">
+  	<time datetime="2021-02-25T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
+</a>
+      	
+      </header>
+    
+<div align="center" class="post-count">
+    字数：164字 | 预计阅读时长：1分钟
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="用好Alt-Enter实现高效编码"><a href="#用好Alt-Enter实现高效编码" class="headerlink" title="用好Alt + Enter实现高效编码"></a>用好Alt + Enter实现高效编码</h2><h5 id="类型变量补齐"><a href="#类型变量补齐" class="headerlink" title="类型变量补齐"></a>类型变量补齐</h5><p>输入”xx”然后按Alt + Enter 会自动补齐类型和变量名（也可以通过.var来补齐）</p>
+<p><img src="http://im.jinglingmao.shop/image-20210226170043727.png" alt="image-20210226170043727"></p>
+<h5 id="快速创建对象"><a href="#快速创建对象" class="headerlink" title="快速创建对象"></a>快速创建对象</h5><p>当要创建一个类的对象的时候只需要输入类名然后.new</p>
+<p><img src="http://im.jinglingmao.shop/image-20210226170217482.png" alt="image-20210226170217482"></p>
+<p>回车之后</p>
+<p><img src="http://im.jinglingmao.shop/image-20210226170247395.png" alt="image-20210226170247395"></p>
+<p>这时候可以使用Alt + Enter来创建对象了（也可以通过.var）</p>
+<p><img src="http://im.jinglingmao.shop/image-20210226170315998.png" alt="image-20210226170315998"></p>
+<h5 id="快速生成for循环"><a href="#快速生成for循环" class="headerlink" title="快速生成for循环"></a>快速生成for循环</h5><p>fori + Tab键</p>
+<p><img src="http://im.jinglingmao.shop/fori.gif" alt="fori"></p>
+<p><img src="http://im.jinglingmao.shop/image-20210309140827264.png" alt="image-20210309140827264"></p>
+<p>当前修改光标在i，如果要修改变量i的名称可以直接输入，不修改则在按一下Tab跳到下一个输入位置（这里是<code>i &lt;  </code> 的地方）。完成之后回车。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag1</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag2</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag3</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/simple/idea12/">展开全文 >></a>
+        </p>
+      
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
   
 
 
@@ -559,6 +870,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tag1</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tag2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tag3</a>
               </li>
             
             <div class="clearfix"></div>

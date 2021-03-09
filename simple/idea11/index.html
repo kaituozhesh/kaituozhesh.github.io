@@ -6,20 +6,44 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.jinglingmao.shop">
-  <title>01、Git常用命令 | 程序驿站|一个专注于分享的博客</title>
+  <title>11-IntelliJ IDEA实战篇：debug | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
+  <meta name="description" content="IDEA最新版安装破解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01、Git常用命令">
-<meta property="og:url" content="http://www.jinglingmao.shop/simple/git01/index.html">
+<meta property="og:title" content="11-IntelliJ IDEA实战篇：debug">
+<meta property="og:url" content="http://www.jinglingmao.shop/simple/idea11/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
+<meta property="og:description" content="IDEA最新版安装破解">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210227131932747.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308141024038.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308140919372.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308141329798.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135037804.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135205160.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135229945.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135303736.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135310729.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135320936.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135332761.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135343831.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308135351047.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308141938794.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142225078.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142556539.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142615333.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142633781.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142645397.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142659381.png">
+<meta property="og:image" content="http://im.jinglingmao.shop/image-20210308142717973.png">
 <meta property="article:published_time" content="2021-02-25T07:15:39.000Z">
-<meta property="article:modified_time" content="2021-03-06T09:54:28.853Z">
+<meta property="article:modified_time" content="2021-03-08T06:36:15.011Z">
 <meta property="article:author" content="程序驿站">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="tag1">
+<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="tag3">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://im.jinglingmao.shop/image-20210227131932747.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -225,14 +249,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-01、Git常用命令" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-IDEA/11、IntelliJ IDEA实战篇：debug" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      01、Git常用命令
+      11-IntelliJ IDEA实战篇：debug
     </h1>
   
 
@@ -248,239 +272,116 @@
 	
 	<!--显示阅读次数完毕-->
 	
-        <a href="/simple/git01/" class="archive-article-date">
+        <a href="/simple/idea11/" class="archive-article-date">
   	<time datetime="2021-02-25T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
 </a>
       	
       </header>
     
 <div align="center" class="post-count">
-    字数：1.2k字 | 预计阅读时长：5分钟
+    字数：754字 | 预计阅读时长：2分钟
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h4><ul>
-<li>在当前目录新建一个Git代码库<ul>
-<li><code>git init</code> 初始化为master分支</li>
-</ul>
-</li>
-<li>新建一个目录，将其初始化为Git代码库<ul>
-<li><code>git init [project-name]</code></li>
-</ul>
-</li>
-<li>克隆远程代码库到本地<ul>
-<li><code>git clone [url]</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><ul>
-<li>显示当前的Git配置<ul>
-<li><code>git config --list</code></li>
-</ul>
-</li>
-<li>设置系统用户<span id="more"></span>
-<ul>
-<li><code>git config --system user.name &quot;zhangsan&quot;</code></li>
-<li><code>git config --system user.email &quot;zhangsan@163.com&quot;</code></li>
-</ul>
-</li>
-<li>设置全局用户<ul>
-<li><code>git config --global user.name &quot;zhangsan&quot;</code></li>
-<li><code>git config --global user.email &quot;zhangsan@163.com&quot;</code></li>
-</ul>
-</li>
-<li>设置当前项目用户<ul>
-<li><code>git config --local user.name &quot;zhangsan&quot;</code></li>
-<li><code>git config --local user.email &quot;zhangsan@163.com&quot;</code></li>
-</ul>
-</li>
-<li>设置不自动转换换行符<ul>
-<li><code>git config --global core.autocrlf false</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="添加、删除、撤销文件"><a href="#添加、删除、撤销文件" class="headerlink" title="添加、删除、撤销文件"></a>添加、删除、撤销文件</h4><ul>
-<li>添加<ul>
-<li><code>git add [file1] [file2]...</code>指定文件到暂存区（将已修改的文件添加到暂存区）</li>
-<li><code>git add [dir]</code> 添加指定目录的所有文件到暂存区</li>
-<li><code>git add .</code> 添加当前目录的所有文件到暂存区</li>
-</ul>
-</li>
-<li>删除<ul>
-<li><code>git rm [file1] [file2]</code>删除文件，并将这次删除操作记录暂存区（其实就是删除文件）</li>
-<li><code>git rm --cached [file]</code> 把文件从Git暂存区中移除，回到已修改状态（被commit的也能回到未add状态）</li>
-</ul>
-</li>
-<li>撤销<ul>
-<li><code>git checkout [commitId] [file]</code>恢复某一个commit的指定文件到暂存区和工作区</li>
-<li><code>git reset [file/commitId]</code>只是重置暂存区的指定文件与上一次commit保持一致，但是工作区不变</li>
-<li><code>git reset --hard /[commitId]</code>重置暂存区与工作区，与上一次commit保持一致或指定commit</li>
-<li><code>git reset --keep [commit]</code>重置当前Head为指定commit，但保持暂存区和工作区不变</li>
-<li><code>git revert [commit]</code> 后者的所有变化都将被前者抵消，并且应用到当前分支（回滚到指定commit）</li>
-<li><code>git stash</code>暂时将没有add的变化移除</li>
-<li><code>git stash pop</code>将之前移除的变化再移入(有冲突的时候可以先移除变化,吧代码拉下来再把,变化移入,删除多余代码)</li>
-</ul>
-</li>
-</ul>
-<h4 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h4><ul>
-<li>提交暂存区中的更新到本地仓库<ul>
-<li><code>git commit -m [message]</code></li>
-</ul>
-</li>
-<li>提交工作区自上一次commit之后的变化，直接到本地仓库<ul>
-<li><code>git commit -a</code></li>
-</ul>
-</li>
-<li>使用一次新的commit，替代上一次的提交<ul>
-<li><code>git commit --amend -m [message]</code> （如果代码没有任何新变化，则用来改写上一次commit的提交信息）</li>
-</ul>
-</li>
-</ul>
-<h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><ul>
-<li>列出分支<ul>
-<li>本地所有分支：<code>git branch</code> </li>
-<li>远程所有分支：<code>git branch -r</code></li>
-<li>本地和远程所有分支：<code>git branch -a</code></li>
-</ul>
-</li>
-<li>新建分支<ul>
-<li>新建一个分支，但依然停留在当前分支：<code>git branch [branch-name]</code></li>
-<li>新建一个分支，并切换到该分支：<code>git checkout -b [branch]</code></li>
-<li>新建一个分支，指向指定commit：<code>git branch [branch] [commit]</code></li>
-<li>新建一个分支，与指定远程分支建立追踪关系：<code>git branch --trach [branch] [remote-branch</code></li>
-<li>新建一个分支,指向某个tag：<code>git checkout -b [branch] [tag]</code></li>
-</ul>
-</li>
-<li>切换分支<ul>
-<li>切换到指定分支，并更新工作区：<code>git checkout [branch-name]</code></li>
-</ul>
-</li>
-<li><strong>合并</strong><ul>
-<li>合并指定分支到当前分支：<code>git merge [branch]</code></li>
-<li>选择一个commit，合并进当前分支：<code>git cherry-pick [commit]</code></li>
-</ul>
-</li>
-<li>删除远程分支<ul>
-<li><code>git push origin --delete [branch-name]</code></li>
-<li><code>git branch -dr [remote/branch]</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><ul>
-<li>列出所有tag<ul>
-<li><code>git tag</code></li>
-</ul>
-</li>
-<li>新建tag<ul>
-<li>在当前commit新建一个tag：<code>git tag [tag-name]</code></li>
-<li>在指定commit新建一个tag：<code>git tag [tag-name] [commit]</code></li>
-</ul>
-</li>
-<li>删除<ul>
-<li>删除本地tag：<code>git tag -d [tag-name]</code></li>
-<li>删除远程tag：<code>git push origin :refs/tags/[tag-name]</code></li>
-</ul>
-</li>
-<li>查看tag信息<ul>
-<li><code>git show [tag]</code></li>
-</ul>
-</li>
-<li>提交<ul>
-<li>提交指定tag：<code>git push [remote] [tag]</code></li>
-<li>提交所有tag：<code>git push [remote] --tags</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="信息查看"><a href="#信息查看" class="headerlink" title="信息查看"></a>信息查看</h4><ul>
-<li>查看变更文件<ul>
-<li><code>git status</code></li>
-</ul>
-</li>
-<li>显示当前分支的版本历史<ul>
-<li><code>git log</code></li>
-</ul>
-</li>
-<li>显示commit历史,以及每次commit发生变更的文件<ul>
-<li><code>git log --stat</code></li>
-</ul>
-</li>
-<li>搜索提交历史<ul>
-<li><code>git log -S [keyword]</code></li>
-</ul>
-</li>
-<li>显示所有提交过的用户，按提交次数排序<ul>
-<li><code>git shortlog -sn</code></li>
-</ul>
-</li>
-<li>显示指定文件是什么人在什么时间修改过<ul>
-<li><code>git blame [file]</code></li>
-</ul>
-</li>
-<li>显示暂存区和工作区的差异<ul>
-<li><code>git diff</code></li>
-</ul>
-</li>
-<li>显示暂存区和上一个commit的差异<ul>
-<li><code>git diff -cached [file]</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><ul>
-<li>下载远程仓库的所有变动<ul>
-<li><code>git fetch [remote]</code></li>
-</ul>
-</li>
-<li>显示所有远程仓库<ul>
-<li><code>git remote -v</code></li>
-</ul>
-</li>
-<li>显示某个远程仓库的信息<ul>
-<li><code>git remote show [remote]</code></li>
-</ul>
-</li>
-<li>增加一个新的远程仓库，并命名<ul>
-<li><code>git remote add [shortname] [url]</code></li>
-</ul>
-</li>
-<li>取回远程仓库的变化，并与本地分支合并<ul>
-<li>git pull [remote] [branch]</li>
-</ul>
-</li>
-<li>上传本地指定分支到远程仓库<ul>
-<li><code>git push [remote] [branch]</code></li>
-</ul>
-</li>
-<li>强行推送当前分支到远程仓库，即使有冲突<ul>
-<li><code>git push [remote] --force</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>查询状态<ul>
-<li><code>git status</code> </li>
-</ul>
-</li>
-<li>将已修改的文件纳入Git暂存区当中<ul>
-<li><code>git add &lt;file&gt;</code></li>
-</ul>
-</li>
-<li>把文件从Git暂存区中移除，回到已修改状态<ul>
-<li><code>git rm --cached &lt;file&gt;</code></li>
-</ul>
-</li>
-<li>提交暂存区中所有的修改到本地版本库中<ul>
-<li><code>git commit -m </code></li>
-</ul>
-</li>
-<li>查看提交历史<ul>
-<li><code>git log</code></li>
-</ul>
-</li>
-<li>把一个文件的修改还原到上一次提交<ul>
-<li><code>git checkout -- &lt;file&gt;</code></li>
-</ul>
-</li>
-</ul>
+        <h2 id="IntelliJ-IDEA-Debug实战"><a href="#IntelliJ-IDEA-Debug实战" class="headerlink" title="IntelliJ IDEA Debug实战"></a>IntelliJ IDEA Debug实战</h2><p><img src="http://im.jinglingmao.shop/image-20210227131932747.png" alt="image-20210227131932747"></p>
+<p>① 断点：在左边行号栏单击左键，或者快捷键Ctrl+F8 打上/取消断点。</p>
+<p>② 调试按钮：调试的主要功能就对应着这几个按钮，鼠标悬停在按钮上可以查看对应的快捷键。在菜单栏Run里可以找到同样的对应的功能</p>
+<p>③ 服务按钮：可以在这里关闭/启动服务，设置断点等。</p>
+<p>④ 方法调用栈：这里显示了该线程调试所经过的所有方法，勾选右上角的[Show All Frames]按钮，就不会显示其它类库的方法了，否则这里会有一大堆的方法。</p>
+<p>⑤ Variables：在变量区可以查看当前断点之前的当前方法内的变量。</p>
+<p>⑥ Watches：查看变量，可以将Variables区中的变量拖到Watches中查看 </p>
+<h3 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h3><blockquote>
+<p>断点可以分为普通断点、条件断点、多线程断点。</p>
+</blockquote>
+<h4 id="条件断点"><a href="#条件断点" class="headerlink" title="条件断点"></a>条件断点</h4><blockquote>
+<p>通过设置断点条件，在满足条件时，才会停在断点处，否则直接往后运行。</p>
+</blockquote>
+<p>操作：在普通断点的小红点上右键就会出现如下对话框，在Condition中输入条件即可。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308141024038.png" alt="image-20210308141024038">条件断点右下角是有一个小问号的。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308140919372.png" alt="image-20210308140919372"></p>
+<p>注：只有当i == 300条件成立的时候断点才会生效。</p>
+<h4 id="多线程断点"><a href="#多线程断点" class="headerlink" title="多线程断点"></a>多线程断点</h4><blockquote>
+<p>在多线程环境下调试代码，需要把断点挂起级别修改为Thread。</p>
+</blockquote>
+<p><img src="http://im.jinglingmao.shop/image-20210308141329798.png" alt="image-20210308141329798"></p>
+<h3 id="调试按钮"><a href="#调试按钮" class="headerlink" title="调试按钮"></a>调试按钮</h3><p><img src="http://im.jinglingmao.shop/image-20210308135037804.png" alt="image-20210308135037804"></p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135205160.png" alt="image-20210308135205160"></td>
+<td>（Alt + F10）：如果你的光标在其他行或其他页面，点击这个按钮可以跳转到当前代码执行的行。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135229945.png" alt="image-20210308135229945"></td>
+<td>（F8）：步过，一行一行得往下走，如果当前行是一个方法，不会进入方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135303736.png" alt="image-20210308135303736"></td>
+<td>（F7）：步入，如果当前行是方法，会进入方法内部，一般用于进入自定义方法，不会进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135310729.png" alt="image-20210308135310729"></td>
+<td>（Alt + Shift + F7）：强制不如，能进入任何方法，查看顶层源代码的时候可以用这个进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135320936.png" alt="image-20210308135320936"></td>
+<td>（Shift + F8）：步出，从步入的方法内退出到方法调用处，此时方法已经执行完毕，只是还没有完成赋值。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135332761.png" alt="image-20210308135332761"></td>
+<td>回退断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135343831.png" alt="image-20210308135343831"></td>
+<td>（Alt + F9）：运行到光标处，可以将光标定位到你需要查看的那一行，然后使用这个功能，代码会运行至光标行，而不需要打断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308135351047.png" alt="image-20210308135351047"></td>
+<td>（Alt + F8）：计算表达式。</td>
+</tr>
+</tbody></table>
+<p>唯一需要演示的可能就是计算表达式了。</p>
+<p>比如：result是调用某个方法的返回值，这时候我们可以通过计算表达式改变变量的值，就可以很方便的测试各种返回值的执行结果了。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308141938794.png" alt="image-20210308141938794"></p>
+<p>计算表达式中不仅能修改变量值，还能自定义变量，调用方法自定义方法等。</p>
+<p><img src="http://im.jinglingmao.shop/image-20210308142225078.png" alt="image-20210308142225078"></p>
+<h3 id="服务按钮"><a href="#服务按钮" class="headerlink" title="服务按钮"></a>服务按钮</h3><table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142556539.png" alt="image-20210308142556539"></td>
+<td>重新运行程序。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142615333.png" alt="image-20210308142615333"></td>
+<td>跳到下一个断点处。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142633781.png" alt="image-20210308142633781"></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142645397.png" alt="image-20210308142645397"></td>
+<td>停止服务。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142659381.png" alt="image-20210308142659381"></td>
+<td>查看所有断点。</td>
+</tr>
+<tr>
+<td><img src="http://im.jinglingmao.shop/image-20210308142717973.png" alt="image-20210308142717973"></td>
+<td>让所有断点失效，断点颜色会变成灰色。</td>
+</tr>
+</tbody></table>
 
       
 
@@ -554,7 +455,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.jinglingmao.shop/simple/git01/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.jinglingmao.shop/simple/idea11/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -566,7 +467,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag1</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag2</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tag3</a>
         		</li>
       		
 		</ul>
@@ -578,7 +487,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
+        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
         		</li>
       		
 		</ul>
@@ -598,20 +507,29 @@
 		<img src="/img/wxgzh.jpg" alt="程序驿站">
 	</div>
 	<div class="article-card-content">
-		<p><span>本文标题: </span><a href="http://www.jinglingmao.shop/simple/git01/" title="01、Git常用命令" target="_blank">01、Git常用命令</a></p>
+		<p><span>本文标题: </span><a href="http://www.jinglingmao.shop/simple/idea11/" title="11-IntelliJ IDEA实战篇：debug" target="_blank">11-IntelliJ IDEA实战篇：debug</a></p>
 	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
 	    <p><span>发布时间: </span>2021-02-25</p>
-	    <p><span>最后更新: </span>2021-03-06</p>
+	    <p><span>最后更新: </span>2021-03-08</p>
 	    <p><span>版权声明: </span>本文为<a target="_blank" rel="noopener" href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
-	    <p><span>本文链接: </span><a href="http://www.jinglingmao.shop/simple/git01/" title="01、Git常用命令" target="_blank">http://www.jinglingmao.shop/simple/git01/</a></p>
+	    <p><span>本文链接: </span><a href="http://www.jinglingmao.shop/simple/idea11/" title="11-IntelliJ IDEA实战篇：debug" target="_blank">http://www.jinglingmao.shop/simple/idea11/</a></p>
 	</div>
 </div>
   
 <nav id="article-nav">
   
+    <a href="/simple/git02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          02、GitFlow工作流
+        
+      </div>
+    </a>
   
-    <a href="/simple/git02/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">02、GitFlow工作流</div>
+  
+    <a href="/simple/idea12/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">12、IntelliJ IDEA实战篇：码出高效.md</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -641,7 +559,7 @@
                 </span>
                 <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">Git配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E3%80%81%E6%92%A4%E9%94%80%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">添加、删除、撤销文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-number">4.</span> <span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-number">6.</span> <span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B"><span class="toc-number">7.</span> <span class="toc-text">信息查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">8.</span> <span class="toc-text">远程同步</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IntelliJ-IDEA-Debug%E5%AE%9E%E6%88%98"><span class="toc-number">1.</span> <span class="toc-text">IntelliJ IDEA Debug实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">断点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%96%AD%E7%82%B9"><span class="toc-number">1.1.1.</span> <span class="toc-text">条件断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%AD%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">多线程断点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="toc-number">1.2.</span> <span class="toc-text">调试按钮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8C%89%E9%92%AE"><span class="toc-number">1.3.</span> <span class="toc-text">服务按钮</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
