@@ -2045,6 +2045,7 @@ pre .css ~ * .id, pre .id {
     line-height: 35px;
     margin-bottom: 20px;
     font-size: 26px;
+    display: inline;
     -webkit-transition: color 0.3s;
     -moz-transition: color 0.3s;
     -o-transition: color 0.3s;
@@ -2185,7 +2186,7 @@ pre .css ~ * .id, pre .id {
 
 .article-inner h1:first-child {
     margin-bottom: 10px;
-    display: inline
+    /*display: inline*/
 }
 
 .article-entry {
