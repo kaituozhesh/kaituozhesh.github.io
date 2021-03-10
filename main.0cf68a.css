@@ -2266,15 +2266,16 @@ pre .css ~ * .id, pre .id {
 }
 
 .article-entry h1 {
-    margin-top: 30px
-}
+    margin-top: 30px;
+    color: #3CB371;
+    border-bottom: 1px solid #ddd
+} 
 
 .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6 {
     margin-top: 20px;
     font-weight: 700;
-    color: #3CB371;
+    font-size: 20px;
     padding-bottom: 5px;
-    border-bottom: 1px solid #ddd
 }
 
 .article-entry video {
