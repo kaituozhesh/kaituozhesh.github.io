@@ -18,16 +18,12 @@
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
 <meta property="og:description" content="在IDEA中自定义类 | 接口模板 减少重复代码开发.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210311094250329.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210311094401079.png">
 <meta property="article:published_time" content="2021-03-11T06:37:39.000Z">
-<meta property="article:modified_time" content="2021-03-11T06:37:24.018Z">
+<meta property="article:modified_time" content="2021-03-11T09:00:00.306Z">
 <meta property="article:author" content="程序驿站">
 <meta property="article:tag" content="tools">
 <meta property="article:tag" content="IntelliJ IDEA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -117,7 +113,7 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/kaituozhesh" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
@@ -177,7 +173,7 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/kaituozhesh" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
@@ -246,7 +242,7 @@
   	</span>
   	</a>
   	<div align="center" class="post-count">
-	    字数：362字 | 预计阅读时长：1分钟
+	    字数：75字 | 预计阅读时长：1分钟
 	</div>
 	
 	<!--显示阅读次数完毕-->
@@ -266,30 +262,6 @@
 <span id="more"></span>
 
 <p>设置坐标：File -&gt; Settings -&gt; Editor -&gt; File and Code Templates -&gt; Files -&gt; Class</p>
-<p><img src="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png" alt="自定义类模板"></p>
-<h2 id="类模板配置信息"><a href="#类模板配置信息" class="headerlink" title="类模板配置信息"></a>类模板配置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#if ($&#123;PACKAGE_NAME&#125; &amp;&amp; $&#123;PACKAGE_NAME&#125; != &quot;&quot;)package $&#123;PACKAGE_NAME&#125;;#end</span><br><span class="line">#parse(&quot;File Header.java&quot;)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@ClassName</span> $&#123;NAME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Description</span> </span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Author</span> 程序驿站: https://www.ityizhan.net</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Date</span> $&#123;DATE&#125; $&#123;TIME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Version</span> V1.0.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> $</span>&#123;NAME&#125; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存后，当我们创建类的时候就会自动生成类注释了</p>
-<p><img src="http://resources.ityizhan.net/image-20210311094250329.png" alt="自定义类模板效果"></p>
-<h2 id="内置属性"><a href="#内置属性" class="headerlink" title="内置属性"></a>内置属性</h2><ul>
-<li><code>$&#123;PACKAGE_NAME&#125;</code>：创建类的包名</li>
-<li><code>$&#123;NAME&#125;</code>：类名</li>
-<li><code>$&#123;USER&#125;</code>：当前系统的登录用户名</li>
-<li><code>$&#123;DATE&#125;</code>：当前系统日期</li>
-<li><code>$&#123;TIME&#125;</code>：当前系统时间</li>
-<li><code>$&#123;YEAR&#125;</code>：当前年</li>
-<li><code>$&#123;MONTH&#125;</code>：当前月</li>
-<li><code>$&#123;MONTH_NAME_SHORT&#125;</code>：当前月分英文缩写，如：Jan, Feb</li>
-<li><code>$&#123;MONTH_NAME_FULL&#125;</code>：当前月份英文全称，如：January, February</li>
-<li><code>$&#123;DAY&#125;</code>：本月的当前日期</li>
-<li><code>$&#123;HOUR&#125;</code>：当前小时</li>
-<li><code>$&#123;MINUTE&#125;</code>：当前分钟</li>
-<li><code>$&#123;PROJECT_NAME&#125;</code>：当前项目名称</li>
-</ul>
-<h2 id="接口模板配置信息"><a href="#接口模板配置信息" class="headerlink" title="接口模板配置信息"></a>接口模板配置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#if ($&#123;PACKAGE_NAME&#125; &amp;&amp; $&#123;PACKAGE_NAME&#125; != &quot;&quot;)package $&#123;PACKAGE_NAME&#125;;#end</span><br><span class="line">#parse(&quot;File Header.java&quot;)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@ServiceName</span> $&#123;NAME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Description</span> </span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Author</span> 程序驿站: https://www.ityizhan.net</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Date</span> $&#123;DATE&#125; $&#123;TIME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Version</span> V1.0.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> $</span>&#123;NAME&#125; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://resources.ityizhan.net/image-20210311094401079.png" alt="自定义接口模板效果"></p>
-<p>方法注释模板放到自定义代码片段章节讲。</p>
 
       
 
@@ -426,7 +398,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          06、IntelliJ IDEA入门篇：自定义快捷键.md
+          06.IntelliJ IDEA入门篇：自定义快捷键.md
         
       </div>
     </a>
@@ -463,7 +435,7 @@
                 </span>
                 <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB-%E6%8E%A5%E5%8F%A3%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">自定义类 | 接口模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.1.</span> <span class="toc-text">类模板配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">内置属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.</span> <span class="toc-text">接口模板配置信息</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB-%E6%8E%A5%E5%8F%A3%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">自定义类 | 接口模板</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -510,7 +482,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 程序驿站 <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">浙ICP备20022402号-1</a>
+    		&copy; 2021 程序驿站 <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">浙ICP备20022402号-2</a>
     	</div>
       	
     </div>

@@ -53,6 +53,22 @@
   .category-all-page .category-list-child {
     padding-left: 10px;
   }
+  .category-all-page a {
+	  display: block;
+	  width: 100%;
+	  height: 100%;
+	  color: orange;
+	  line-height: 60px;
+	  font-size: 18px;
+	  vertical-align: middle;
+  }
+  .category-all-page .category-item { 
+	height: 60px;
+	border: 1px solid #2f2f2f;
+    border-radius: 6px;
+    -webkit-box-shadow: 4px 4px 18px rgb(0 0 0 / 46%);
+    box-shadow: 4px 4px 18px rgb(0 0 0 / 46%);
+  }
 /*自定义分类页结束*/
   
 .clearfix:after {
@@ -62,6 +78,8 @@
 .left-col.show {
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, .75)
 }
+
+
 
 .mid-col, .mid-col.show .article, .tools-col, .tools-col .tools-section .search-tag.tagcloud .article-tag-list, .tools-col .tools-section .search-ul .search-tag span:hover, .tools-col .tools-section .search-ul .search-time span:hover, .tools-col .tools-section .search-ul .search-title:hover, .tools-col .tools-section .search-wrap .icon {
     transition: all .2s ease-in;
