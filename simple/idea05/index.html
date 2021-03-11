@@ -4,37 +4,30 @@
   <meta charset="utf-8">
   
   
-	<meta name="keywords" content="IDEA,IntelliJ IDEA,tools,开发工具,IDEA安装破解,Download">
+	<meta name="keywords" content="IDEA,IntelliJ IDEA,tools,模板,自定义,类">
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.ityizhan.net">
-  <title>01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解 | 程序驿站|一个专注于分享的博客</title>
+  <title>05.IntelliJ IDEA入门篇：类模板定义 | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IntelliJ IDEA2020.3官方最新版安装破解,亲测有效.">
+  <meta name="description" content="在IDEA中自定义类 | 接口模板 减少重复代码开发.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解">
-<meta property="og:url" content="http://www.ityizhan.net/simple/idea01/index.html">
+<meta property="og:title" content="05.IntelliJ IDEA入门篇：类模板定义">
+<meta property="og:url" content="http://www.ityizhan.net/simple/idea05/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="IntelliJ IDEA2020.3官方最新版安装破解,亲测有效.">
+<meta property="og:description" content="在IDEA中自定义类 | 接口模板 减少重复代码开发.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227114354847.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227114502813.png">
-<meta property="og:image" content="http://resources.ityizhan.net/20210310133341.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227115417146.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227115458999.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210310145749537.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104202344.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104355152.png">
-<meta property="og:image" content="http://resources.ityizhan.net/20201229153416.jpg">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104543984.png">
-<meta property="article:published_time" content="2021-03-10T06:47:39.000Z">
-<meta property="article:modified_time" content="2021-03-10T08:26:24.676Z">
+<meta property="og:image" content="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210311094250329.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210311094401079.png">
+<meta property="article:published_time" content="2021-03-11T06:37:39.000Z">
+<meta property="article:modified_time" content="2021-03-11T06:37:24.018Z">
 <meta property="article:author" content="程序驿站">
 <meta property="article:tag" content="tools">
 <meta property="article:tag" content="IntelliJ IDEA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://resources.ityizhan.net/image-20210227114354847.png">
+<meta name="twitter:image" content="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -232,14 +225,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-IDEA/01.IntelliJ IDEA入门篇：IDEA安装及破解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-IDEA/05.IntelliJ IDEA入门篇：类模板定义" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解
+      05.IntelliJ IDEA入门篇：类模板定义
     </h1>
   
 
@@ -253,13 +246,13 @@
   	</span>
   	</a>
   	<div align="center" class="post-count">
-	    字数：475字 | 预计阅读时长：1分钟
+	    字数：362字 | 预计阅读时长：1分钟
 	</div>
 	
 	<!--显示阅读次数完毕-->
 	
-        <a href="/simple/idea01/" class="archive-article-date">
-  	<time datetime="2021-03-10T06:47:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
+        <a href="/simple/idea05/" class="archive-article-date">
+  	<time datetime="2021-03-11T06:37:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
 </a>
       	
       </header>
@@ -267,38 +260,36 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IntelliJ-IDEA安装步骤"><a href="#IntelliJ-IDEA安装步骤" class="headerlink" title="IntelliJ IDEA安装步骤"></a>IntelliJ IDEA安装步骤</h1><h2 id="官网下载IntelliJ-IDEA"><a href="#官网下载IntelliJ-IDEA" class="headerlink" title="官网下载IntelliJ IDEA"></a>官网下载IntelliJ IDEA</h2><span id="more"></span>
-<p><a target="_blank" rel="noopener" href="http://www.jetbrains.com/idea/">下载地址</a> 点击Download</p>
-<p><img src="http://resources.ityizhan.net/image-20210227114354847.png" alt="IntelliJ IDEA官方下载地址"></p>
-<h2 id="选择对应的操作系统下载"><a href="#选择对应的操作系统下载" class="headerlink" title="选择对应的操作系统下载"></a>选择对应的操作系统下载</h2><p><img src="http://resources.ityizhan.net/image-20210227114502813.png" alt="IntelliJ IDEA下载系统选择"></p>
-<h2 id="运行安装包进行安装"><a href="#运行安装包进行安装" class="headerlink" title="运行安装包进行安装"></a>运行安装包进行安装</h2><p><img src="http://resources.ityizhan.net/20210310133341.png" alt="运行可执行文件"></p>
-<p>点击Next下一步，选择安装路径，注：文件夹下不要存在中文，避免出现不必要的麻烦。</p>
-<p><img src="http://resources.ityizhan.net/image-20210227115417146.png" alt="选择安装目录"></p>
-<p>点击Next下一步，安装选项设置</p>
-<p><img src="http://resources.ityizhan.net/image-20210227115458999.png" alt="环境安装"></p>
-<ul>
-<li>Create Desktop Shortcut：创建桌面快捷方式，根据操作系统选择</li>
-<li>Update context menu：鼠标右键添加“打开文件夹作为项目”选项，看个人需要；</li>
-<li>Create Associations：创建关联，勾选后打开对应文件都是以IDEA打开，个人建议不勾选；</li>
-<li>Download and install 32-bit JetBrains Runtime：下载并安装32位运行环境，安装JDK已经安装过就无需勾选。个人不建议勾选，此处安装是在JetBrains下载，国内网速普遍下载缓慢；</li>
-<li>Update PATH variable(restart needed)：更新路径变量（需要重启），添加IDEA的环境变量。</li>
-<li>选择完成后点击next进行下一步，</li>
+        <h1 id="自定义类-接口模板"><a href="#自定义类-接口模板" class="headerlink" title="自定义类 | 接口模板"></a>自定义类 | 接口模板</h1><blockquote>
+<p>每个类和接口都应该有对应的描述信息、作者、版本等信息，对于这样的重复代码，这里通过IDEA提供给的代码模板来完成。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>设置坐标：File -&gt; Settings -&gt; Editor -&gt; File and Code Templates -&gt; Files -&gt; Class</p>
+<p><img src="http://resources.ityizhan.net/PpdXlMES6nHiDRv.png" alt="自定义类模板"></p>
+<h2 id="类模板配置信息"><a href="#类模板配置信息" class="headerlink" title="类模板配置信息"></a>类模板配置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#if ($&#123;PACKAGE_NAME&#125; &amp;&amp; $&#123;PACKAGE_NAME&#125; != &quot;&quot;)package $&#123;PACKAGE_NAME&#125;;#end</span><br><span class="line">#parse(&quot;File Header.java&quot;)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@ClassName</span> $&#123;NAME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Description</span> </span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Author</span> 程序驿站: https://www.ityizhan.net</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Date</span> $&#123;DATE&#125; $&#123;TIME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Version</span> V1.0.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> $</span>&#123;NAME&#125; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存后，当我们创建类的时候就会自动生成类注释了</p>
+<p><img src="http://resources.ityizhan.net/image-20210311094250329.png" alt="自定义类模板效果"></p>
+<h2 id="内置属性"><a href="#内置属性" class="headerlink" title="内置属性"></a>内置属性</h2><ul>
+<li><code>$&#123;PACKAGE_NAME&#125;</code>：创建类的包名</li>
+<li><code>$&#123;NAME&#125;</code>：类名</li>
+<li><code>$&#123;USER&#125;</code>：当前系统的登录用户名</li>
+<li><code>$&#123;DATE&#125;</code>：当前系统日期</li>
+<li><code>$&#123;TIME&#125;</code>：当前系统时间</li>
+<li><code>$&#123;YEAR&#125;</code>：当前年</li>
+<li><code>$&#123;MONTH&#125;</code>：当前月</li>
+<li><code>$&#123;MONTH_NAME_SHORT&#125;</code>：当前月分英文缩写，如：Jan, Feb</li>
+<li><code>$&#123;MONTH_NAME_FULL&#125;</code>：当前月份英文全称，如：January, February</li>
+<li><code>$&#123;DAY&#125;</code>：本月的当前日期</li>
+<li><code>$&#123;HOUR&#125;</code>：当前小时</li>
+<li><code>$&#123;MINUTE&#125;</code>：当前分钟</li>
+<li><code>$&#123;PROJECT_NAME&#125;</code>：当前项目名称</li>
 </ul>
-<p>然后无脑下一步就可以了。</p>
-<h1 id="IntelliJ-IDEA破解步骤"><a href="#IntelliJ-IDEA破解步骤" class="headerlink" title="IntelliJ IDEA破解步骤"></a>IntelliJ IDEA破解步骤</h1><p><a target="_blank" rel="noopener" href="http://resources.ityizhan.net/BetterIntelliJ.rar">下载破解工具包</a>（包含了破解插件、激活码）</p>
-<h2 id="点击试用进入IDEA"><a href="#点击试用进入IDEA" class="headerlink" title="点击试用进入IDEA"></a>点击试用进入IDEA</h2><p>下载好后运行软件，进入idea主界面，提示需要注册，这时候只需要勾选试用（Evaluate for free）选项，点进Evaluate进入IDEA。</p>
-<p><img src="http://resources.ityizhan.net/image-20210310145749537.png" alt="image-20210310145749537"></p>
-<p><font color=#FF6600><strong>注：如果不是第一次破解，请先执行工具包解压目录 -&gt; 使用教程 -&gt; reset_script 对应文件重置一下试用时间。</strong></font></p>
-<h2 id="导入下载的插件包"><a href="#导入下载的插件包" class="headerlink" title="导入下载的插件包"></a>导入下载的插件包</h2><p>坐标：File -&gt; Settings -&gt; Plugins -&gt; Install Plugin form Disk</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104202344.png" alt="从磁盘下载插件"></p>
-<p>找到之前下载解压的工具包，选择安装即可</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104355152.png" alt="选择对应插件的zip包"></p>
-<p>重启软件</p>
-<p><img src="http://resources.ityizhan.net/20201229153416.jpg" alt="重启idea"></p>
-<h2 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h2><p>打开主界面，找到 Help-&gt;Register，选择activation code，将key复制到框内，点击activate即可，如图</p>
-<p>key在工具包中有提供</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104543984.png" alt="输入激活码激活"></p>
-<p>我这里是激活完成了的。你们只需要复制到Activation code中点击activate即可。</p>
+<h2 id="接口模板配置信息"><a href="#接口模板配置信息" class="headerlink" title="接口模板配置信息"></a>接口模板配置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#if ($&#123;PACKAGE_NAME&#125; &amp;&amp; $&#123;PACKAGE_NAME&#125; != &quot;&quot;)package $&#123;PACKAGE_NAME&#125;;#end</span><br><span class="line">#parse(&quot;File Header.java&quot;)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@ServiceName</span> $&#123;NAME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Description</span> </span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Author</span> 程序驿站: https://www.ityizhan.net</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Date</span> $&#123;DATE&#125; $&#123;TIME&#125;</span></span><br><span class="line"><span class="comment"> *<span class="doctag">@Version</span> V1.0.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> $</span>&#123;NAME&#125; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://resources.ityizhan.net/image-20210311094401079.png" alt="自定义接口模板效果"></p>
+<p>方法注释模板放到自定义代码片段章节讲。</p>
 
       
 
@@ -372,7 +363,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/idea01/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/idea05/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -420,26 +411,31 @@
 		<img src="/img/wxgzh.jpg" alt="程序驿站">
 	</div>
 	<div class="article-card-content">
-		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/idea01/" title="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解" target="_blank">01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解</a></p>
+		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/idea05/" title="05.IntelliJ IDEA入门篇：类模板定义" target="_blank">05.IntelliJ IDEA入门篇：类模板定义</a></p>
 	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
-	    <p><span>发布时间: </span>2021-03-10</p>
-	    <p><span>最后更新: </span>2021-03-10</p>
+	    <p><span>发布时间: </span>2021-03-11</p>
+	    <p><span>最后更新: </span>2021-03-11</p>
 	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
-	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/idea01/" title="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解" target="_blank">http://www.ityizhan.net/simple/idea01/</a></p>
+	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/idea05/" title="05.IntelliJ IDEA入门篇：类模板定义" target="_blank">http://www.ityizhan.net/simple/idea05/</a></p>
 	</div>
 </div>
   
 <nav id="article-nav">
   
-    <a href="/simple/idea02/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/simple/idea06/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          02.IntelliJ IDEA入门篇：项目创建
+          06、IntelliJ IDEA入门篇：自定义快捷键.md
         
       </div>
     </a>
   
+  
+    <a href="/simple/idea04/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">04.IntelliJ IDEA入门篇：常用快捷键</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -467,7 +463,7 @@
                 </span>
                 <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">IntelliJ IDEA安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDIntelliJ-IDEA"><span class="toc-number">1.1.</span> <span class="toc-text">官网下载IntelliJ IDEA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%AF%B9%E5%BA%94%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">选择对应的操作系统下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%89%E8%A3%85%E5%8C%85%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">运行安装包进行安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA%E7%A0%B4%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">IntelliJ IDEA破解步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E8%AF%95%E7%94%A8%E8%BF%9B%E5%85%A5IDEA"><span class="toc-number">2.1.</span> <span class="toc-text">点击试用进入IDEA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E4%B8%8B%E8%BD%BD%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">导入下载的插件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB"><span class="toc-number">2.3.</span> <span class="toc-text">激活</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB-%E6%8E%A5%E5%8F%A3%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">自定义类 | 接口模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.1.</span> <span class="toc-text">类模板配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">内置属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.</span> <span class="toc-text">接口模板配置信息</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

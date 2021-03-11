@@ -4,37 +4,30 @@
   <meta charset="utf-8">
   
   
-	<meta name="keywords" content="IDEA,IntelliJ IDEA,tools,开发工具,IDEA安装破解,Download">
+	<meta name="keywords" content="IDEA,IntelliJ IDEA,tools,服务,负载均衡">
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.ityizhan.net">
-  <title>01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解 | 程序驿站|一个专注于分享的博客</title>
+  <title>09.IntelliJ IDEA入门篇：一个服务启动多个实例 | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IntelliJ IDEA2020.3官方最新版安装破解,亲测有效.">
+  <meta name="description" content="配置在IDEA中启动多个相同的服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解">
-<meta property="og:url" content="http://www.ityizhan.net/simple/idea01/index.html">
+<meta property="og:title" content="09.IntelliJ IDEA入门篇：一个服务启动多个实例">
+<meta property="og:url" content="http://www.ityizhan.net/simple/idea09/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="IntelliJ IDEA2020.3官方最新版安装破解,亲测有效.">
+<meta property="og:description" content="配置在IDEA中启动多个相同的服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227114354847.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227114502813.png">
-<meta property="og:image" content="http://resources.ityizhan.net/20210310133341.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227115417146.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210227115458999.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210310145749537.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104202344.png">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104355152.png">
-<meta property="og:image" content="http://resources.ityizhan.net/20201229153416.jpg">
-<meta property="og:image" content="http://resources.ityizhan.net/image-20210309104543984.png">
-<meta property="article:published_time" content="2021-03-10T06:47:39.000Z">
-<meta property="article:modified_time" content="2021-03-10T08:26:24.676Z">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210309112528484.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210309112639472.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210309112840108.png">
+<meta property="article:published_time" content="2021-03-11T06:42:39.000Z">
+<meta property="article:modified_time" content="2021-03-11T06:42:12.595Z">
 <meta property="article:author" content="程序驿站">
 <meta property="article:tag" content="tools">
 <meta property="article:tag" content="IntelliJ IDEA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://resources.ityizhan.net/image-20210227114354847.png">
+<meta name="twitter:image" content="http://resources.ityizhan.net/image-20210309112528484.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -232,14 +225,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-IDEA/01.IntelliJ IDEA入门篇：IDEA安装及破解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-IDEA/09.IntelliJ IDEA入门篇：一个服务启动多个实例" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解
+      09.IntelliJ IDEA入门篇：一个服务启动多个实例
     </h1>
   
 
@@ -253,13 +246,13 @@
   	</span>
   	</a>
   	<div align="center" class="post-count">
-	    字数：475字 | 预计阅读时长：1分钟
+	    字数：143字 | 预计阅读时长：1分钟
 	</div>
 	
 	<!--显示阅读次数完毕-->
 	
-        <a href="/simple/idea01/" class="archive-article-date">
-  	<time datetime="2021-03-10T06:47:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
+        <a href="/simple/idea09/" class="archive-article-date">
+  	<time datetime="2021-03-11T06:42:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
 </a>
       	
       </header>
@@ -267,38 +260,22 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IntelliJ-IDEA安装步骤"><a href="#IntelliJ-IDEA安装步骤" class="headerlink" title="IntelliJ IDEA安装步骤"></a>IntelliJ IDEA安装步骤</h1><h2 id="官网下载IntelliJ-IDEA"><a href="#官网下载IntelliJ-IDEA" class="headerlink" title="官网下载IntelliJ IDEA"></a>官网下载IntelliJ IDEA</h2><span id="more"></span>
-<p><a target="_blank" rel="noopener" href="http://www.jetbrains.com/idea/">下载地址</a> 点击Download</p>
-<p><img src="http://resources.ityizhan.net/image-20210227114354847.png" alt="IntelliJ IDEA官方下载地址"></p>
-<h2 id="选择对应的操作系统下载"><a href="#选择对应的操作系统下载" class="headerlink" title="选择对应的操作系统下载"></a>选择对应的操作系统下载</h2><p><img src="http://resources.ityizhan.net/image-20210227114502813.png" alt="IntelliJ IDEA下载系统选择"></p>
-<h2 id="运行安装包进行安装"><a href="#运行安装包进行安装" class="headerlink" title="运行安装包进行安装"></a>运行安装包进行安装</h2><p><img src="http://resources.ityizhan.net/20210310133341.png" alt="运行可执行文件"></p>
-<p>点击Next下一步，选择安装路径，注：文件夹下不要存在中文，避免出现不必要的麻烦。</p>
-<p><img src="http://resources.ityizhan.net/image-20210227115417146.png" alt="选择安装目录"></p>
-<p>点击Next下一步，安装选项设置</p>
-<p><img src="http://resources.ityizhan.net/image-20210227115458999.png" alt="环境安装"></p>
-<ul>
-<li>Create Desktop Shortcut：创建桌面快捷方式，根据操作系统选择</li>
-<li>Update context menu：鼠标右键添加“打开文件夹作为项目”选项，看个人需要；</li>
-<li>Create Associations：创建关联，勾选后打开对应文件都是以IDEA打开，个人建议不勾选；</li>
-<li>Download and install 32-bit JetBrains Runtime：下载并安装32位运行环境，安装JDK已经安装过就无需勾选。个人不建议勾选，此处安装是在JetBrains下载，国内网速普遍下载缓慢；</li>
-<li>Update PATH variable(restart needed)：更新路径变量（需要重启），添加IDEA的环境变量。</li>
-<li>选择完成后点击next进行下一步，</li>
-</ul>
-<p>然后无脑下一步就可以了。</p>
-<h1 id="IntelliJ-IDEA破解步骤"><a href="#IntelliJ-IDEA破解步骤" class="headerlink" title="IntelliJ IDEA破解步骤"></a>IntelliJ IDEA破解步骤</h1><p><a target="_blank" rel="noopener" href="http://resources.ityizhan.net/BetterIntelliJ.rar">下载破解工具包</a>（包含了破解插件、激活码）</p>
-<h2 id="点击试用进入IDEA"><a href="#点击试用进入IDEA" class="headerlink" title="点击试用进入IDEA"></a>点击试用进入IDEA</h2><p>下载好后运行软件，进入idea主界面，提示需要注册，这时候只需要勾选试用（Evaluate for free）选项，点进Evaluate进入IDEA。</p>
-<p><img src="http://resources.ityizhan.net/image-20210310145749537.png" alt="image-20210310145749537"></p>
-<p><font color=#FF6600><strong>注：如果不是第一次破解，请先执行工具包解压目录 -&gt; 使用教程 -&gt; reset_script 对应文件重置一下试用时间。</strong></font></p>
-<h2 id="导入下载的插件包"><a href="#导入下载的插件包" class="headerlink" title="导入下载的插件包"></a>导入下载的插件包</h2><p>坐标：File -&gt; Settings -&gt; Plugins -&gt; Install Plugin form Disk</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104202344.png" alt="从磁盘下载插件"></p>
-<p>找到之前下载解压的工具包，选择安装即可</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104355152.png" alt="选择对应插件的zip包"></p>
-<p>重启软件</p>
-<p><img src="http://resources.ityizhan.net/20201229153416.jpg" alt="重启idea"></p>
-<h2 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h2><p>打开主界面，找到 Help-&gt;Register，选择activation code，将key复制到框内，点击activate即可，如图</p>
-<p>key在工具包中有提供</p>
-<p><img src="http://resources.ityizhan.net/image-20210309104543984.png" alt="输入激活码激活"></p>
-<p>我这里是激活完成了的。你们只需要复制到Activation code中点击activate即可。</p>
+        <h1 id="多实例启动"><a href="#多实例启动" class="headerlink" title="多实例启动"></a>多实例启动</h1><blockquote>
+<p>默认IDEA一个服务只能启动一个实例，这样当我们要测试负载均衡的时候就会很麻烦。</p>
+</blockquote>
+<span id="more"></span>
+<p>在不做配置的情况下，IDEA默认只能启动一个实例，就算改变了端口号，也只是重启原有服务，端口变成新的 。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li>点击右上角编辑服务配置</li>
+</ol>
+<p><img src="http://resources.ityizhan.net/image-20210309112528484.png" alt="编辑服务配置"></p>
+<ol start="2">
+<li>选择对应要修改的服务并勾选Allow parallel run</li>
+</ol>
+<p><img src="http://resources.ityizhan.net/image-20210309112639472.png" alt="修改对应配置"></p>
+<p>保存并关闭。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>这时候我们通过修改端口号就能启动两个相同的服务了。</p>
+<p><img src="http://resources.ityizhan.net/image-20210309112840108.png" alt="测试效果"></p>
 
       
 
@@ -372,7 +349,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/idea01/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/idea09/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -420,26 +397,31 @@
 		<img src="/img/wxgzh.jpg" alt="程序驿站">
 	</div>
 	<div class="article-card-content">
-		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/idea01/" title="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解" target="_blank">01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解</a></p>
+		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/idea09/" title="09.IntelliJ IDEA入门篇：一个服务启动多个实例" target="_blank">09.IntelliJ IDEA入门篇：一个服务启动多个实例</a></p>
 	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
-	    <p><span>发布时间: </span>2021-03-10</p>
-	    <p><span>最后更新: </span>2021-03-10</p>
+	    <p><span>发布时间: </span>2021-03-11</p>
+	    <p><span>最后更新: </span>2021-03-11</p>
 	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
-	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/idea01/" title="01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解" target="_blank">http://www.ityizhan.net/simple/idea01/</a></p>
+	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/idea09/" title="09.IntelliJ IDEA入门篇：一个服务启动多个实例" target="_blank">http://www.ityizhan.net/simple/idea09/</a></p>
 	</div>
 </div>
   
 <nav id="article-nav">
   
-    <a href="/simple/idea02/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/simple/idea10/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          02.IntelliJ IDEA入门篇：项目创建
+          10、IntelliJ IDEA集成篇：高效编码插件集成
         
       </div>
     </a>
   
+  
+    <a href="/simple/idea08/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">08.IntelliJ IDEA入门篇：Run DashBoard</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -467,7 +449,7 @@
                 </span>
                 <span class="tooltip-content" id="content-menu">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">IntelliJ IDEA安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDIntelliJ-IDEA"><span class="toc-number">1.1.</span> <span class="toc-text">官网下载IntelliJ IDEA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%AF%B9%E5%BA%94%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">选择对应的操作系统下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%89%E8%A3%85%E5%8C%85%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">运行安装包进行安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IntelliJ-IDEA%E7%A0%B4%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">IntelliJ IDEA破解步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E8%AF%95%E7%94%A8%E8%BF%9B%E5%85%A5IDEA"><span class="toc-number">2.1.</span> <span class="toc-text">点击试用进入IDEA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E4%B8%8B%E8%BD%BD%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">导入下载的插件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB"><span class="toc-number">2.3.</span> <span class="toc-text">激活</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%AE%9E%E4%BE%8B%E5%90%AF%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">多实例启动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">测试</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
