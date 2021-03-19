@@ -64,6 +64,7 @@
   }
   .category-all-page .category-item { 
 	height: 60px;
+	margin: 20px 0px;
 	border: 1px solid #2f2f2f;
     border-radius: 6px;
     -webkit-box-shadow: 4px 4px 18px rgb(0 0 0 / 46%);
@@ -1151,7 +1152,7 @@ body {
 }
 
 .article-entry .highlight .line {
-    color: #fff;
+    color: #d9d9d9;
     min-height: 19px
 }
 
@@ -1215,11 +1216,11 @@ pre .comment {
 }
 
 pre .class .params, pre .function .keyword, pre .keyword {
-    color: #66d9ef
+    color: #ff9900
 }
 
 pre .css .value, pre .doctype, pre .function, pre .params, pre .tag {
-    color: #fff
+    color: #d9d9d9
 }
 
 pre .at_rule, pre .at_rule .keyword, pre .css ~ * .tag, pre .preprocessor, pre .preprocessor .keyword, pre .title {
@@ -1227,15 +1228,15 @@ pre .at_rule, pre .at_rule .keyword, pre .css ~ * .tag, pre .preprocessor, pre .
 }
 
 pre .attribute, pre .built_in, pre .class, pre .css ~ * .class, pre .function .title {
-    color: #a6e22e
+    color: #e5e600
 }
 
 pre .string, pre .value {
-    color: #e6db74
+    color: #009900
 }
 
 pre .number {
-    color: #7163d7
+    color: #4db8ff
 }
 
 pre .css ~ * .id, pre .id {
@@ -2286,7 +2287,7 @@ pre .css ~ * .id, pre .id {
 .article-entry blockquote {
     padding: 15px 20px;
     margin-top: 10px;
-    border-left: 5px solid green;
+    border-left: 5px solid #eeccff;
     /*background: #f6f6f6*/
 }
 
@@ -2347,6 +2348,7 @@ pre .css ~ * .id, pre .id {
     font-weight: 700;
     font-size: 20px;
     padding-bottom: 5px;
+    color: #66c2ff
 }
 
 .article-entry video {

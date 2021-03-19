@@ -4,23 +4,36 @@
   <meta charset="utf-8">
   
   
-	<meta name="keywords" content="程序驿站,IT驿站,IT博客,技术分享,个人技术博客,Java,微服务,Spring,Spring Cloud,大数据,云计算">
+	<meta name="keywords" content="JUC,Unsafe,Java,C,CAS,内存屏障,volatile,类加载,源码,线程调度">
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.ityizhan.net">
-  <title>程序驿站|一个专注于分享的博客</title>
+  <title>01.Unsafe类 | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[程序驿站]一个专注于分享技术的博客,在这里我们将为你提供最新最全面的内容">
-<meta property="og:type" content="website">
-<meta property="og:title" content="程序驿站|一个专注于分享的博客">
-<meta property="og:url" content="http://www.ityizhan.net/index.html">
+  <meta name="description" content="Unsafe源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01.Unsafe类">
+<meta property="og:url" content="http://www.ityizhan.net/code/101010/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="[程序驿站]一个专注于分享技术的博客,在这里我们将为你提供最新最全面的内容">
+<meta property="og:description" content="Unsafe源码分析">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210313161808010.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313163402360.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313172043604.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313190144429.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313191246555.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313191328362.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313191547649.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313191524709.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313193029124.png">
+<meta property="article:published_time" content="2021-03-15T07:15:39.000Z">
+<meta property="article:modified_time" content="2021-03-15T07:20:10.551Z">
 <meta property="article:author" content="程序驿站">
-<meta property="article:tag" content="程序驿站,IT驿站,IT博客,技术分享,个人技术博客,Java,微服务,Spring,Spring Cloud,大数据,云计算">
+<meta property="article:tag" content="源码分析">
+<meta property="article:tag" content="JUC">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210313161808010.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -218,20 +231,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-code/JUC/01.JUC核心篇：Unsafe类源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-code/JUC/01.JUC核心篇：Unsafe类源码分析" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/code/101010/">01.Unsafe类</a>
+    <h1 class="article-title" itemprop="name">
+      01.Unsafe类
     </h1>
   
 
 	<!--显示阅读次数-->
+	
+  	<br/>
+  	<a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  	<span class="icon-sort"></span>
+  	<span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  	</span>
+  	</a>
+  	<div align="center" class="post-count">
+	    字数：4.4k字 | 预计阅读时长：19分钟
+	</div>
 	
 	<!--显示阅读次数完毕-->
 	
@@ -410,9 +432,80 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zfbskm.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wxskm.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
+      
+        
+<div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/code/101010/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       
 	<div class="article-tag tagcloud">
@@ -444,16 +537,41 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/code/101010/">展开全文 >></a>
-        </p>
-      
 
 
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  <div class="article-card">
+	<div class="article-card-img">
+		<img src="/img/wxgzh.jpg" alt="程序驿站">
+	</div>
+	<div class="article-card-content">
+		<p><span>本文标题: </span><a href="http://www.ityizhan.net/code/101010/" title="01.Unsafe类" target="_blank">01.Unsafe类</a></p>
+	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
+	    <p><span>发布时间: </span>2021-03-15</p>
+	    <p><span>最后更新: </span>2021-03-15</p>
+	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
+	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/code/101010/" title="01.Unsafe类" target="_blank">http://www.ityizhan.net/code/101010/</a></p>
+	</div>
+</div>
+  
+<nav id="article-nav">
+  
+    <a href="/simple/102010/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          01.Maven入门篇：Maven是什么,能做什么
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -468,894 +586,55 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/Maven/01.Maven入门篇：Maven是什么，能做什么" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/102010/">01.Maven入门篇：Maven是什么,能做什么</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/102010/" class="archive-article-date">
-  	<time datetime="2021-03-12T05:43:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="传统项目开发中存在的问题"><a href="#传统项目开发中存在的问题" class="headerlink" title="传统项目开发中存在的问题"></a>传统项目开发中存在的问题</h2><ol>
-<li>项目中需要的jar包数量众多，需要手动下载并引入。</li>
-<li>项目中需要的jar包版本存在兼容问题，需要手动解决。</li>
-<li>项目中需要的jar包依赖于其他jar包，需要手动解决。</li>
-</ol>
-<h2 id="Maven-是什么，帮我们解决了什么问题"><a href="#Maven-是什么，帮我们解决了什么问题" class="headerlink" title="Maven 是什么，帮我们解决了什么问题"></a>Maven 是什么，帮我们解决了什么问题</h2><p>Maven的本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM）。开发人员只需要做一些简单的配置，就可以批量完成项目的构建、报告和文档生成工作。</p>
-<p>Maven是跨平台的，这意味着无论是在Windows上，还是在Linux或者Mac上，都可以使用相同的命令。</p>
-<p>Maven最大化地消除了构建的重复，抽象了构建生命周期，并且为绝大部分的构建任务提供了已实现的插件，我们不再需要定义过程，甚至不需要再去实现这些过程中的一些任务。</p>
-<p>最重要的是Maven它能保住我们标准化构建过程，在使用Maven之前，十个项目就可能存在十种构建方式，有了Maven之后，所有项目的构建命令都是标准化的。</p>
-<p>Maven 还能帮助我们管理原本分散在项目中各个角落的项目信息，包括项目描述、开发者列表、版本控制系统地址、许可证等。这些微小的变化看起来很琐碎，并不起眼，但却在不知不觉中为我们节省了大量寻找信息的时间。</p>
-<p>除了直接的项目信息，通过 Maven 自动生成的站点，以及一些已有的插件，我们还能够轻松获得项目文档、测试报告、静态分析报告、源码版本日志报告等非常具有价值的项目信息。</p>
-<p>Maven 还为全世界的 Java 开发者提供了一个免费的中央仓库，在其中几乎可以找到任何的流行开源类库。通过一些 Maven 的衍生工具（如 Nexus），我们还能对其进行快速地搜索。只要定位了坐标，Maven 就能够帮我们自动下载，省去了手工劳动。</p>
-<p>使用 Maven 还能享受一个额外的好处，即 Maven 对于项目目录结构、测试用例命名方式等内容都有既定的规则，只要遵循了这些成熟的规则，用户在项目间切换的时候就免去了额外的学习成本，可以说是约定优于配置（Convention Over Configuration）。</p>
-<p>简单来说就是：</p>
-<ul>
-<li>统一集中管理好所有的依赖包，不需要程序员再去寻找。</li>
-<li>对应第三方组件用到的共同jar，Maven自动解决重复和冲突问题。</li>
-<li>Maven作为一个开放的框架，提供了公共结构，方便同第三方插件集成。程序员可以将自己的插件，动态地集成到Maven，从而扩展新的管理功能。</li>
-<li>Maven作为统一每个项目的构建过程，实现不同项目的兼容性管理。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Maven//" class="article-tag-list-link color1">Maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/102010/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <script async src="/js/demo.js"></script>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category1 menu_button"></i>
+            <i class="icon-font icon-category2 menu_button"></i>
+            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content" id="content-menu">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Unsafe"><span class="toc-number">1.</span> <span class="toc-text">Unsafe</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96Unsafe%E7%B1%BB%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.1.</span> <span class="toc-text">获取Unsafe类实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unsafe%E7%B1%BB%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text">Unsafe类的主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3"><span class="toc-number">1.3.</span> <span class="toc-text">Java对象操作相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E7%9B%B8%E5%AF%B9%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">获取字段相对偏移量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%AD%97%E6%AE%B5%E5%81%8F%E7%A7%BB%E9%87%8F%E8%AE%BE%E7%BD%AE-%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="toc-number">1.3.2.</span> <span class="toc-text">根据字段偏移量设置&#x2F;获取字段值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile%E7%89%88%E6%9C%AC%E6%A0%B9%E6%8D%AE%E5%AD%97%E6%AE%B5%E5%81%8F%E7%A7%BB%E9%87%8F%E8%AE%BE%E7%BD%AE-%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="toc-number">1.3.3.</span> <span class="toc-text">volatile版本根据字段偏移量设置&#x2F;获取字段值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E5%BB%B6%E8%BF%9F%E5%8C%96%E7%9A%84%E8%AE%BE%E7%BD%AE%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="toc-number">1.3.4.</span> <span class="toc-text">有序延迟化的设置字段值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E7%9A%84%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-number">1.3.5.</span> <span class="toc-text">数组相关的偏移量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">Class相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAJava%E7%B1%BB"><span class="toc-number">1.4.1.</span> <span class="toc-text">创建Java类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.4.2.</span> <span class="toc-text">Java类初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AEClass%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.4.3.</span> <span class="toc-text">根据Class创建对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">代码示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C"><span class="toc-number">1.5.</span> <span class="toc-text">CAS更新操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-2"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%93%8D%E4%BD%9C"><span class="toc-number">1.6.</span> <span class="toc-text">内存操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E8%AE%BE%E7%BD%AE-%E8%8E%B7%E5%8F%96%E5%AF%B9%E5%BA%94%E7%9A%84%E5%80%BC"><span class="toc-number">1.6.1.</span> <span class="toc-text">根据内存地址设置&#x2F;获取对应的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E8%AE%BE%E7%BD%AE-%E8%8E%B7%E5%8F%96%E6%8C%87%E9%92%88"><span class="toc-number">1.6.2.</span> <span class="toc-text">根据内存地址设置&#x2F;获取指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E3%80%81%E6%89%A9%E5%B1%95%E3%80%81%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98"><span class="toc-number">1.6.3.</span> <span class="toc-text">分配、扩展、释放内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-3"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="toc-number">1.7.</span> <span class="toc-text">系统信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-4"><span class="toc-number">1.7.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">1.8.</span> <span class="toc-text">线程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-5"><span class="toc-number">1.8.1.</span> <span class="toc-text">源码示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A2%E9%94%81%E4%B8%8E%E9%87%8A%E6%94%BE%E9%94%81-%E5%B7%B2%E5%BC%83%E7%94%A8"><span class="toc-number">1.8.2.</span> <span class="toc-text">抢锁与释放锁(已弃用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C"><span class="toc-number">1.8.3.</span> <span class="toc-text">内存屏障</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%A4%BA%E4%BE%8B-6"><span class="toc-number">1.8.3.1.</span> <span class="toc-text">源码示例</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-
-  
-    <article id="post-simple/IDEA/12.IntelliJ IDEA实战篇：码出高效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea12/">12、IntelliJ IDEA实战篇：码出高效</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea12/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:55:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        用好Alt + Enter实现高效编码
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea12/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/11.IntelliJ IDEA实战篇：debug" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea11/">11.IntelliJ IDEA实战篇：debug</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea11/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:52:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        IntelliJ IDEA Debug实战(断点 | 调试按钮 | 服务按钮 | 方法调用栈 | 变量查看)等
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea11/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/10.IntelliJ IDEA集成篇：高效编码插件集成" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea10/">10、IntelliJ IDEA集成篇：高效编码插件集成</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea10/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:45:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        IntelliJ IDEA高效编码插件涵盖代码规范 | Maven冲突解决 | 日志格式化 | 问题搜索
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea10/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/09.IntelliJ IDEA入门篇：一个服务启动多个实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea09/">09.IntelliJ IDEA入门篇：一个服务启动多个实例</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea09/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:42:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        配置在IDEA中启动多个相同的服务
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea09/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/08.IntelliJ IDEA入门篇：Run DashBoard" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea08/">08.IntelliJ IDEA入门篇：Run DashBoard</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea08/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:40:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        配置IDEA中的Services仪表盘
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea08/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/07.IntelliJ IDEA入门篇：自定义代码片段" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea07/">07.IntelliJ IDEA入门篇：自定义代码片段</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea07/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:39:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        在IDEA中自定义代码模板减少重复性开发，真正实现码出高效
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea07/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/06.IntelliJ IDEA入门篇：自定义快捷键" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea06/">06、IntelliJ IDEA入门篇：自定义快捷键.md</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea06/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:38:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        在IDEA中自定义类 | 接口模板 减少重复代码开发.
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea06/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/05.IntelliJ IDEA入门篇：类模板定义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea05/">05.IntelliJ IDEA入门篇：类模板定义</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea05/" class="archive-article-date">
-  	<time datetime="2021-03-11T06:37:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        在IDEA中自定义类 | 接口模板 减少重复代码开发.
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea05/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </nav>
   
 
+  
+
+  
+
+  
+
+
+   
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
           </div>
         </div>
@@ -1375,8 +654,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
