@@ -220,6 +220,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-code/JUC/01.JUC核心篇：Unsafe类源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/code/101010/">01.Unsafe类</a>
+    </h1>
+  
+
+	<!--显示阅读次数-->
+	
+	<!--显示阅读次数完毕-->
+	
+        <a href="/code/101010/" class="archive-article-date">
+  	<time datetime="2021-03-20T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-20</time>
+</a>
+      	
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        Unsafe类底层源码分析及实际应用
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JUC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JUC//" class="article-tag-list-link color4">JUC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/code/101010/">展开全文 >></a>
+        </p>
+      
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-simple/Maven/01.Maven入门篇：Maven是什么，能做什么" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -244,27 +339,8 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="传统项目开发中存在的问题"><a href="#传统项目开发中存在的问题" class="headerlink" title="传统项目开发中存在的问题"></a>传统项目开发中存在的问题</h2><ol>
-<li>项目中需要的jar包数量众多，需要手动下载并引入。</li>
-<li>项目中需要的jar包版本存在兼容问题，需要手动解决。</li>
-<li>项目中需要的jar包依赖于其他jar包，需要手动解决。</li>
-</ol>
-<h2 id="Maven-是什么，帮我们解决了什么问题"><a href="#Maven-是什么，帮我们解决了什么问题" class="headerlink" title="Maven 是什么，帮我们解决了什么问题"></a>Maven 是什么，帮我们解决了什么问题</h2><p>Maven的本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM）。开发人员只需要做一些简单的配置，就可以批量完成项目的构建、报告和文档生成工作。</p>
-<p>Maven是跨平台的，这意味着无论是在Windows上，还是在Linux或者Mac上，都可以使用相同的命令。</p>
-<p>Maven最大化地消除了构建的重复，抽象了构建生命周期，并且为绝大部分的构建任务提供了已实现的插件，我们不再需要定义过程，甚至不需要再去实现这些过程中的一些任务。</p>
-<p>最重要的是Maven它能保住我们标准化构建过程，在使用Maven之前，十个项目就可能存在十种构建方式，有了Maven之后，所有项目的构建命令都是标准化的。</p>
-<p>Maven 还能帮助我们管理原本分散在项目中各个角落的项目信息，包括项目描述、开发者列表、版本控制系统地址、许可证等。这些微小的变化看起来很琐碎，并不起眼，但却在不知不觉中为我们节省了大量寻找信息的时间。</p>
-<p>除了直接的项目信息，通过 Maven 自动生成的站点，以及一些已有的插件，我们还能够轻松获得项目文档、测试报告、静态分析报告、源码版本日志报告等非常具有价值的项目信息。</p>
-<p>Maven 还为全世界的 Java 开发者提供了一个免费的中央仓库，在其中几乎可以找到任何的流行开源类库。通过一些 Maven 的衍生工具（如 Nexus），我们还能对其进行快速地搜索。只要定位了坐标，Maven 就能够帮我们自动下载，省去了手工劳动。</p>
-<p>使用 Maven 还能享受一个额外的好处，即 Maven 对于项目目录结构、测试用例命名方式等内容都有既定的规则，只要遵循了这些成熟的规则，用户在项目间切换的时候就免去了额外的学习成本，可以说是约定优于配置（Convention Over Configuration）。</p>
-<p>简单来说就是：</p>
-<ul>
-<li>统一集中管理好所有的依赖包，不需要程序员再去寻找。</li>
-<li>对应第三方组件用到的共同jar，Maven自动解决重复和冲突问题。</li>
-<li>Maven作为一个开放的框架，提供了公共结构，方便同第三方插件集成。程序员可以将自己的插件，动态地集成到Maven，从而扩展新的管理功能。</li>
-<li>Maven作为统一每个项目的构建过程，实现不同项目的兼容性管理。</li>
-</ul>
-
+        初步了解Maven是什么,能帮我们解决什么问题.
+        
       
 
       
@@ -1064,101 +1140,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/simple/idea05/">展开全文 >></a>
-        </p>
-      
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-simple/IDEA/04.IntelliJ IDEA入门篇：常用快捷键" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/simple/idea04/">04.IntelliJ IDEA入门篇：常用快捷键</a>
-    </h1>
-  
-
-	<!--显示阅读次数-->
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/idea04/" class="archive-article-date">
-  	<time datetime="2021-03-10T09:01:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        分类整理IDEA常用快捷键,[常规操作,查询操作,代码定位,高效编码,代码分析...]
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJ-IDEA//" class="article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/simple/idea04/">展开全文 >></a>
         </p>
       
 
