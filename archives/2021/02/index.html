@@ -9,20 +9,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.ityizhan.net">
-  <title>01.Maven入门篇：Maven是什么,能做什么 | 程序驿站|一个专注于分享的博客</title>
+  <title>Archives: 2021/2 | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="初步了解Maven是什么,能帮我们解决什么问题.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="01.Maven入门篇：Maven是什么,能做什么">
-<meta property="og:url" content="http://www.ityizhan.net/simple/102010/index.html">
+  <meta name="description" content="[程序驿站]一个专注于分享技术的博客,在这里我们将为你提供最新最全面的内容">
+<meta property="og:type" content="website">
+<meta property="og:title" content="程序驿站|一个专注于分享的博客">
+<meta property="og:url" content="http://www.ityizhan.net/archives/2021/02/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="初步了解Maven是什么,能帮我们解决什么问题.">
+<meta property="og:description" content="[程序驿站]一个专注于分享技术的博客,在这里我们将为你提供最新最全面的内容">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-12T05:43:39.000Z">
-<meta property="article:modified_time" content="2021-03-12T05:55:50.848Z">
 <meta property="article:author" content="程序驿站">
-<meta property="article:tag" content="tools">
-<meta property="article:tag" content="Maven">
+<meta property="article:tag" content="程序驿站,IT驿站,IT博客,技术分享,个人技术博客,Java,微服务,Spring,Spring Cloud,大数据,云计算">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
@@ -221,268 +218,76 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-simple/Maven/01.Maven入门篇：Maven是什么，能做什么" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      01.Maven入门篇：Maven是什么,能做什么
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/code/101010/" class="archive-article-date">
+  	<time datetime="2021-02-25T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/code/101010/">01.Unsafe类</a>
     </h1>
   
 
-	<!--显示阅读次数-->
-	
-  	<br/>
-  	<a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-  	<span class="icon-sort"></span>
-  	<span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-  	</span>
-  	</a>
-  	<div align="center" class="post-count">
-	    字数：800字 | 预计阅读时长：2分钟
-	</div>
-	
-	<!--显示阅读次数完毕-->
-	
-        <a href="/simple/102010/" class="archive-article-date">
-  	<time datetime="2021-03-12T05:43:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-      	
-      </header>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="传统项目开发中存在的问题"><a href="#传统项目开发中存在的问题" class="headerlink" title="传统项目开发中存在的问题"></a>传统项目开发中存在的问题</h2><ol>
-<li>项目中需要的jar包数量众多，需要手动下载并引入。</li>
-<li>项目中需要的jar包版本存在兼容问题，需要手动解决。</li>
-<li>项目中需要的jar包依赖于其他jar包，需要手动解决。</li>
-</ol>
-<h2 id="Maven-是什么，帮我们解决了什么问题"><a href="#Maven-是什么，帮我们解决了什么问题" class="headerlink" title="Maven 是什么，帮我们解决了什么问题"></a>Maven 是什么，帮我们解决了什么问题</h2><p>Maven的本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM）。开发人员只需要做一些简单的配置，就可以批量完成项目的构建、报告和文档生成工作。</p>
-<p>Maven是跨平台的，这意味着无论是在Windows上，还是在Linux或者Mac上，都可以使用相同的命令。</p>
-<p>Maven最大化地消除了构建的重复，抽象了构建生命周期，并且为绝大部分的构建任务提供了已实现的插件，我们不再需要定义过程，甚至不需要再去实现这些过程中的一些任务。</p>
-<p>最重要的是Maven它能保住我们标准化构建过程，在使用Maven之前，十个项目就可能存在十种构建方式，有了Maven之后，所有项目的构建命令都是标准化的。</p>
-<p>Maven 还能帮助我们管理原本分散在项目中各个角落的项目信息，包括项目描述、开发者列表、版本控制系统地址、许可证等。这些微小的变化看起来很琐碎，并不起眼，但却在不知不觉中为我们节省了大量寻找信息的时间。</p>
-<p>除了直接的项目信息，通过 Maven 自动生成的站点，以及一些已有的插件，我们还能够轻松获得项目文档、测试报告、静态分析报告、源码版本日志报告等非常具有价值的项目信息。</p>
-<p>Maven 还为全世界的 Java 开发者提供了一个免费的中央仓库，在其中几乎可以找到任何的流行开源类库。通过一些 Maven 的衍生工具（如 Nexus），我们还能对其进行快速地搜索。只要定位了坐标，Maven 就能够帮我们自动下载，省去了手工劳动。</p>
-<p>使用 Maven 还能享受一个额外的好处，即 Maven 对于项目目录结构、测试用例命名方式等内容都有既定的规则，只要遵循了这些成熟的规则，用户在项目间切换的时候就免去了额外的学习成本，可以说是约定优于配置（Convention Over Configuration）。</p>
-<p>简单来说就是：</p>
-<ul>
-<li>统一集中管理好所有的依赖包，不需要程序员再去寻找。</li>
-<li>对应第三方组件用到的共同jar，Maven自动解决重复和冲突问题。</li>
-<li>Maven作为一个开放的框架，提供了公共结构，方便同第三方插件集成。程序员可以将自己的插件，动态地集成到Maven，从而扩展新的管理功能。</li>
-<li>Maven作为统一每个项目的构建过程，实现不同项目的兼容性管理。</li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/zfbskm.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wxskm.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-        
-<div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/102010/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      
+        <div class="article-info info-on-left">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JUC</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Maven//" class="article-tag-list-link color1">Maven</a>
+        			<a href="/categories/JUC//" class="article-tag-list-link color4">JUC</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  <div class="article-card">
-	<div class="article-card-img">
-		<img src="/img/wxgzh.jpg" alt="程序驿站">
-	</div>
-	<div class="article-card-content">
-		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/102010/" title="01.Maven入门篇：Maven是什么,能做什么" target="_blank">01.Maven入门篇：Maven是什么,能做什么</a></p>
-	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
-	    <p><span>发布时间: </span>2021-03-12</p>
-	    <p><span>最后更新: </span>2021-03-12</p>
-	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
-	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/102010/" title="01.Maven入门篇：Maven是什么,能做什么" target="_blank">http://www.ityizhan.net/simple/102010/</a></p>
-	</div>
-</div>
-  
-<nav id="article-nav">
-  
-    <a href="/simple/idea12/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          12、IntelliJ IDEA实战篇：码出高效
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <script async src="/js/demo.js"></script>
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category1 menu_button"></i>
-            <i class="icon-font icon-category2 menu_button"></i>
-            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content" id="content-menu">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">传统项目开发中存在的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%B8%AE%E6%88%91%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">Maven 是什么，帮我们解决了什么问题</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
+    
 
-  
-
-  
-
-
-   
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
 
           </div>
         </div>
@@ -503,8 +308,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

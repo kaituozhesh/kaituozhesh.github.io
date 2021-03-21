@@ -11,14 +11,14 @@
   <link rel="dns-prefetch" href="http://www.ityizhan.net">
   <title>01.Unsafe类 | 程序驿站|一个专注于分享的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Unsafe源码分析">
+  <meta name="description" content="Unsafe类底层源码分析及实际应用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="01.Unsafe类">
 <meta property="og:url" content="http://www.ityizhan.net/code/101010/index.html">
 <meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
-<meta property="og:description" content="Unsafe源码分析">
+<meta property="og:description" content="Unsafe类底层源码分析及实际应用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210313161808010.png">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210313161808010.png">
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313163402360.png">
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313172043604.png">
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313190144429.png">
@@ -27,13 +27,13 @@
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313191547649.png">
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313191524709.png">
 <meta property="og:image" content="http://resources.ityizhan.net/image-20210313193029124.png">
-<meta property="article:published_time" content="2021-03-15T07:15:39.000Z">
-<meta property="article:modified_time" content="2021-03-15T07:20:10.551Z">
+<meta property="article:published_time" content="2021-02-25T07:15:39.000Z">
+<meta property="article:modified_time" content="2021-03-21T06:32:56.591Z">
 <meta property="article:author" content="程序驿站">
 <meta property="article:tag" content="源码分析">
 <meta property="article:tag" content="JUC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210313161808010.png">
+<meta name="twitter:image" content="http://resources.ityizhan.net/image-20210313161808010.png">
   
     <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
   
@@ -258,7 +258,7 @@
 	<!--显示阅读次数完毕-->
 	
         <a href="/code/101010/" class="archive-article-date">
-  	<time datetime="2021-03-15T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
+  	<time datetime="2021-02-25T07:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
 </a>
       	
       </header>
@@ -269,6 +269,8 @@
         <h1 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h1><blockquote>
 <p>Java和C语言的一个重要区别就是，在Java中我们无法直接操作一块内存地址，但Java提供了一个特殊的类Unsafe工具类来间接实现。Unsafe主要提供一些用于执行低级别、不安全操作的方法，（如：直接访问系统内存资源、自主管理内存资源等）。</p>
 </blockquote>
+<span id="more"></span>
+
 <p><font color=#FF7F50>注：</font></p>
 <ul>
 <li><p>Unsafe就和其名字一样，直接使用这个类是不安全的，它能直接在内存上修改访问变量，而无视各种访问修饰符的限制。它几乎所有的public方法都是native(本地方法)的，这些方法都是使用C/C++实现的，它越过了虚拟机层面，直接在操作系统本地执行。</p>
@@ -280,16 +282,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Unsafe</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe theUnsafe = <span class="keyword">new</span> Unsafe();</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Unsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CallerSensitive</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用者Class对象。</span></span><br><span class="line">        Class var0 = Reflection.getCallerClass();</span><br><span class="line">        <span class="comment">// 判断调用者的类加载器是否为系统类加载器。</span></span><br><span class="line">        <span class="keyword">if</span> (!VM.isSystemDomainLoader(var0.getClassLoader())) &#123;</span><br><span class="line">            <span class="comment">// 如果不是JAVA_HOME/jre/lib目录下jar包中的类来调用此方法就会抛出异常。</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">&quot;Unsafe&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> theUnsafe;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然而此静态方法的使用也是受到限制的，只能由JDK中的其他类来调用，普通开发者使用此方法将抛出异常。</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210313161808010.png" alt="image-20210313161808010"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313161808010.png" alt="错误的获取Unsafe类实例"></p>
 <p>虽然无法实例化，但还是可以通过反射获取Unsafe类对象</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Unsafe <span class="title">getUnsafe</span><span class="params">()</span> <span class="keyword">throws</span> IllegalAccessException </span>&#123;</span><br><span class="line">    Field unsafeField = Unsafe.class.getDeclaredFields()[<span class="number">0</span>];</span><br><span class="line">    unsafeField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">    Unsafe unsafe = (Unsafe) unsafeField.get(<span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">return</span> unsafe;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><font color=#FF7F50>再次提示：由于Unsafe类为调用者提供执行不安全操作的能力，返回的Unsafe对象应该由调用方小心保护，绝不能将其传递给不受信任的代码。</font></p>
-<h2 id="Unsafe类的主要功能"><a href="#Unsafe类的主要功能" class="headerlink" title="Unsafe类的主要功能"></a>Unsafe类的主要功能</h2><p><img src="http://resources.ityizhan.net/image-20210313163402360.png" alt="image-20210313163402360"></p>
+<h2 id="Unsafe类的主要功能"><a href="#Unsafe类的主要功能" class="headerlink" title="Unsafe类的主要功能"></a>Unsafe类的主要功能</h2><p><img src="http://resources.ityizhan.net/image-20210313163402360.png" alt="Unsafe类主要功能"></p>
 <h2 id="Java对象操作相关"><a href="#Java对象操作相关" class="headerlink" title="Java对象操作相关"></a>Java对象操作相关</h2><h3 id="获取字段相对偏移量"><a href="#获取字段相对偏移量" class="headerlink" title="获取字段相对偏移量"></a>获取字段相对偏移量</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  根据反射的字段f,获取相应实例变量的偏移量</span></span><br><span class="line"><span class="comment"> *  此偏移量是实例变量的起始地址与对象的起始地址之差，对于一个确定的java类，某字段与对象之间的起始地址之差是常数，</span></span><br><span class="line"><span class="comment"> *  静态变量的偏移量与此类似</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">staticFieldOffset</span><span class="params">(Field f)</span></span>;</span><br><span class="line"><span class="comment">// 根据反射的字段f,获取相应静态变量的偏移量（静态变量的起始地址与相应静态区Klass对象起始地址之差）</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">objectFieldOffset</span><span class="params">(Field f)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>这里提到字段的偏移量，这与Java对象的内存布局有密切关系。Java中对象由对象头和实际数据两部分组成。如下图：</p>
-<p><img src="http://resources.ityizhan.net/image-20210313172043604.png" alt="image-20210313172043604"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313172043604.png" alt="Java对象内存模型"></p>
 <ul>
 <li>MarkWord包含对象的hashCode、锁信息、垃圾回收的分代信息等，占32/64位;</li>
 <li>Class Metadata Pointer表示一个此对象数据类型的Class对象（虚拟机中的Klass对象）的指针，占32/64位;</li>
@@ -368,7 +370,7 @@
 <h4 id="源码示例-2"><a href="#源码示例-2" class="headerlink" title="源码示例"></a>源码示例</h4><blockquote>
 <p>同步容器AQS中的compareAndSetXxx方法都是直接委托上面的CAS方法实现的。</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313190144429.png" alt="image-20210313190144429"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313190144429.png" alt="AQS类中的CAS方法"></p>
 <h2 id="内存操作"><a href="#内存操作" class="headerlink" title="内存操作"></a>内存操作</h2><h3 id="根据内存地址设置-获取对应的值"><a href="#根据内存地址设置-获取对应的值" class="headerlink" title="根据内存地址设置/获取对应的值"></a>根据内存地址设置/获取对应的值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  参数address是绝对内存地址，参数x是设定的值</span></span><br><span class="line"><span class="comment"> *  如果address是零或不是通过allocMemery()方法分配的地址，那么结果未定义</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">byte</span>    <span class="title">getByte</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putByte</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">byte</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">short</span>   <span class="title">getShort</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putShort</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">short</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">char</span>    <span class="title">getChar</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putChar</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">char</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span>     <span class="title">getInt</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putInt</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">int</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span>    <span class="title">getLong</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putLong</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">long</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">float</span>   <span class="title">getFloat</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putFloat</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">float</span> x)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #getByte(long) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">double</span>  <span class="title">getDouble</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br><span class="line"><span class="comment">/** <span class="doctag">@see</span> #putByte(long, byte) */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span>    <span class="title">putDouble</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">double</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
 
 
@@ -384,11 +386,11 @@
 <h4 id="源码示例-3"><a href="#源码示例-3" class="headerlink" title="源码示例"></a>源码示例</h4><blockquote>
 <p>java.nio包下的DirectByteBuffer类的构造方法调用Unsafe.allocateMemory(int)分配初始条件下的内存缓冲区</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313191246555.png" alt="image-20210313191246555"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313191246555.png" alt="Unsafe.allocateMemory(int)的实际应用"></p>
 <blockquote>
 <p>DirectByteBuffer的静态内部类Deallocator的run()调用Unsafe.freeMemory(long)释放相应地址的内存空间</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313191328362.png" alt="image-20210313191328362"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313191328362.png" alt="Unsafe.freeMemory(long)的实际应用"></p>
 <h2 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h2><blockquote>
 <p>获取指定款第、内存也大小等系统软硬件信息，这些信息对于本地内存的分配、使用、寻址很重要。</p>
 </blockquote>
@@ -399,11 +401,11 @@
 <h3 id="源码示例-4"><a href="#源码示例-4" class="headerlink" title="源码示例"></a>源码示例</h3><blockquote>
 <p>sun.nio.ch包下NativeObject类的addressSize（）方法直接委托Unsafe.addressSize()实现</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313191547649.png" alt="image-20210313191547649"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313191547649.png" alt="Unsafe.addressSize()的实际应用"></p>
 <blockquote>
 <p>java.nio包下Bit类pageSize()方法:当pageSize非法时，将Unsafe.pageSize()作为返回值</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313191524709.png" alt="image-20210313191524709"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313191524709.png" alt="Unsafe.pageSize()的实际应用"></p>
 <p>可以看出addressSize()、pageSize()方法的调用者都是nio相关类，这是因为nio是直接使用JVM堆外的本地内存。</p>
 <h2 id="线程管理"><a href="#线程管理" class="headerlink" title="线程管理"></a>线程管理</h2><p>唤醒/休眠线程</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 唤醒</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">unpark</span><span class="params">(Object thread)</span></span>;</span><br><span class="line"><span class="comment">// 休眠</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">park</span><span class="params">(<span class="keyword">boolean</span> isAbsolute, <span class="keyword">long</span> time)</span></span>;</span><br></pre></td></tr></table></figure>
@@ -427,7 +429,7 @@
 <h4 id="源码示例-6"><a href="#源码示例-6" class="headerlink" title="源码示例"></a>源码示例</h4><blockquote>
 <p>loadFence()方法在StampedLock的validate方法有使用到，StampedLock是为了防止CAS更新时出现ABA问题而在JDK1.8新引入的并发工具。</p>
 </blockquote>
-<p><img src="http://resources.ityizhan.net/image-20210313193029124.png" alt="image-20210313193029124"></p>
+<p><img src="http://resources.ityizhan.net/image-20210313193029124.png" alt="loadFence()的实际应用"></p>
 
       
 
@@ -551,8 +553,8 @@
 	<div class="article-card-content">
 		<p><span>本文标题: </span><a href="http://www.ityizhan.net/code/101010/" title="01.Unsafe类" target="_blank">01.Unsafe类</a></p>
 	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
-	    <p><span>发布时间: </span>2021-03-15</p>
-	    <p><span>最后更新: </span>2021-03-15</p>
+	    <p><span>发布时间: </span>2021-02-25</p>
+	    <p><span>最后更新: </span>2021-03-21</p>
 	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
 	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/code/101010/" title="01.Unsafe类" target="_blank">http://www.ityizhan.net/code/101010/</a></p>
 	</div>
@@ -560,15 +562,11 @@
   
 <nav id="article-nav">
   
-    <a href="/simple/102010/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          01.Maven入门篇：Maven是什么,能做什么
-        
-      </div>
-    </a>
   
+    <a href="/simple/idea01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">01.IntelliJ IDEA入门篇：IntelliJ IDEA安装及破解</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -714,11 +712,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color4">IntelliJ IDEA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IntelliJ IDEA</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
