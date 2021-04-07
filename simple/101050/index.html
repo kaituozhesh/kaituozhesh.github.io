@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+	<meta name="keywords" content="JUC,CAS,CLH,MCS,自旋锁">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.ityizhan.net">
+  <title>05.JUC核心篇：CLH锁和MCS锁 | 程序驿站|一个专注于分享的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CLH锁及MCS锁底层实现原理及代码实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05.JUC核心篇：CLH锁和MCS锁">
+<meta property="og:url" content="http://www.ityizhan.net/simple/101050/index.html">
+<meta property="og:site_name" content="程序驿站|一个专注于分享的博客">
+<meta property="og:description" content="CLH锁及MCS锁底层实现原理及代码实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://resources.ityizhan.net/image-20210319130902840.png">
+<meta property="og:image" content="http://resources.ityizhan.net/4651321-be6bd4f326e3e71c">
+<meta property="article:published_time" content="2021-04-06T06:05:39.000Z">
+<meta property="article:modified_time" content="2021-04-06T06:07:46.878Z">
+<meta property="article:author" content="程序驿站">
+<meta property="article:tag" content="源码分析">
+<meta property="article:tag" content="JUC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://resources.ityizhan.net/image-20210319130902840.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序驿站|一个专注于分享的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
+  
+
+  
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"><a href="/">程序驿站</a></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"></h1>
+		</hgroup>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/simple">前置技术</a></li>
+	        
+				<li><a href="/">技术提升</a></li>
+	        
+				<li><a href="/">核心技术</a></li>
+	        
+				<li><a href="/">分布式架构</a></li>
+	        
+				<li><a href="/">微服务架构</a></li>
+	        
+				<li><a href="/">大数据与云计算</a></li>
+	        
+				<li><a href="/">服务管理</a></li>
+	        
+				<li><a href="/code">源码分析</a></li>
+	        
+				<li><a href="/">番外篇</a></li>
+	        
+			</ul>
+		</nav>
+		<nav>
+			<a>总文章数 18</a>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kaituozhesh" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+		<nav class="header-ewm">
+			<img src="/img/wxgzh.jpg" />
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" /*style="background: #4d4d4d*/"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">程序驿站</h1>
+			</hgroup>
+			
+			
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kaituozhesh" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 70%">
+				
+				
+					<li style="width: 10%"><a href="/">主页</a></li>
+		        
+					<li style="width: 10%"><a href="/simple">前置技术</a></li>
+		        
+					<li style="width: 10%"><a href="/">技术提升</a></li>
+		        
+					<li style="width: 10%"><a href="/">核心技术</a></li>
+		        
+					<li style="width: 10%"><a href="/">分布式架构</a></li>
+		        
+					<li style="width: 10%"><a href="/">微服务架构</a></li>
+		        
+					<li style="width: 10%"><a href="/">大数据与云计算</a></li>
+		        
+					<li style="width: 10%"><a href="/">服务管理</a></li>
+		        
+					<li style="width: 10%"><a href="/code">源码分析</a></li>
+		        
+					<li style="width: 10%"><a href="/">番外篇</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-code/JUC/05.JUC核心篇：CLH锁和MCS锁" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      05.JUC核心篇：CLH锁和MCS锁
+    </h1>
+  
+
+	<!--显示阅读次数-->
+	
+  	<br/>
+  	<a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  	<span class="icon-sort"></span>
+  	<span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  	</span>
+  	</a>
+  	<div align="center" class="post-count">
+	    字数：2k字 | 预计阅读时长：7分钟
+	</div>
+	
+	<!--显示阅读次数完毕-->
+	
+        <a href="/simple/101050/" class="archive-article-date">
+  	<time datetime="2021-04-06T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-06</time>
+</a>
+      	
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无论是简单的非公平自旋锁还是公平的基于排队的自旋锁，由于执行线程均在同一个共享变量上自旋，申请和释放锁的时候必须对该共享变量进行修改，这将导致所有参与排队自旋锁操作的处理器的缓存变得无效。如果排队自旋锁竞争比较激烈的话，平凡的缓存同步操作会导致繁重的系统总线和内存的流量，从而大大降低了系统整体的性能。</p>
+<span id="more"></span>
+
+<p>所以需要有一种办法能够让执行线程不再在同一个共享变量上自旋，避免过高频率的缓存同步操作，于是CLH锁和MCS锁应用诞生了。</p>
+<h1 id="CLH锁"><a href="#CLH锁" class="headerlink" title="CLH锁"></a>CLH锁</h1><blockquote>
+<p>CLH锁其实就是一种基于逻辑队列非线程饥饿的一种自旋公平锁，由于是Craig、Landin 和 Hagersten三位大佬的发明，因此命名为CLH锁。</p>
+</blockquote>
+<h2 id="CLH锁原理"><a href="#CLH锁原理" class="headerlink" title="CLH锁原理"></a>CLH锁原理</h2><ul>
+<li>首先有一个尾节点指针，通过这个尾节点指针来构建等待线程的逻辑队列，因此能确保线程先到先服务的公平性，因此尾指针可以说是构建逻辑的桥梁；此外这个尾节点指针是原子引用类型，避免了多线程并发操作的线程安全性问题。</li>
+<li>通过等待锁的每个线程在自己的某个变量上自旋等待，这个变量将由前一个线程写入。由于某个线程获取锁操作时总是通过尾节点指针获取到前一线程写入的变量，而尾节点指针又是原子引用类型，因此确保了这个变量获取出来总是线程安全的。</li>
+</ul>
+<p><img src="http://resources.ityizhan.net/image-20210319130902840.png" alt="CLH锁数据结构"></p>
+<p>简单来说就是：tailNode一直指向最后一个线程的当前节点，而preNode指向前一个线程的curNode节点，获取锁的时候会判断前一个线程的locked标识是否为false，为false则自己获取锁，如果前一个节点的locked为true则自旋等待获取锁。</p>
+<p>当由新节点插入的时候：新节点的preNode指向当前的tailNode指向的节点，而tailNode指向新插入的节点。</p>
+<h2 id="CLH锁代码实现"><a href="#CLH锁代码实现" class="headerlink" title="CLH锁代码实现"></a>CLH锁代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CLHLock</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * CLH锁节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">CLHNode</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 锁状态：默认为false，表示线程没有获取到锁；true表示线程获取到锁或正在等待</span></span><br><span class="line">        <span class="comment">// 为了保证locked状态是线程间可见的，因此用volatile关键字修饰</span></span><br><span class="line">        <span class="keyword">volatile</span> <span class="keyword">boolean</span> locked = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 尾结点，总是指向最后一个CLHNode节点</span></span><br><span class="line">    <span class="comment">// 【注意】这里用了java的原子系列之AtomicReference，能保证原子更新</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicReference&lt;CLHNode&gt; tailNode;</span><br><span class="line">    <span class="comment">// 当前节点的前驱节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadLocal&lt;CLHNode&gt; predNode;</span><br><span class="line">    <span class="comment">// 当前节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadLocal&lt;CLHNode&gt; curNode;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// CLHLock构造函数，用于新建CLH锁节点时做一些初始化逻辑</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CLHLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 初始化时尾结点指向一个空的CLH节点</span></span><br><span class="line">        tailNode = <span class="keyword">new</span> AtomicReference&lt;&gt;(<span class="keyword">new</span> CLHNode());</span><br><span class="line">        <span class="comment">// 初始化当前的CLH节点</span></span><br><span class="line">        curNode = <span class="keyword">new</span> ThreadLocal() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> CLHNode <span class="title">initialValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> CLHNode();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 初始化前继节点，注意此时前继节点没有存储CLHNode对象，存储的是null</span></span><br><span class="line">        predNode = <span class="keyword">new</span> ThreadLocal();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取锁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 取出当前线程ThreadLocal存储的当前节点，初始化值总是一个新建的CLHNode，locked状态为false。</span></span><br><span class="line">        CLHNode currNode = curNode.get();</span><br><span class="line">        <span class="comment">// 此时把lock状态置为true，表示一个有效状态，</span></span><br><span class="line">        <span class="comment">// 即获取到了锁或正在等待锁的状态</span></span><br><span class="line">        currNode.locked = <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">// 当一个线程到来时，总是将尾结点取出来赋值给当前线程的前继节点；</span></span><br><span class="line">        <span class="comment">// 然后再把当前线程的当前节点赋值给尾节点</span></span><br><span class="line">        <span class="comment">// 【注意】在多线程并发情况下，这里通过AtomicReference类能防止并发问题</span></span><br><span class="line">        <span class="comment">// 【注意】哪个线程先执行到这里就会先执行predNode.set(preNode);语句，因此构建了一条逻辑线程等待链</span></span><br><span class="line">        <span class="comment">// 这条链避免了线程饥饿现象发生</span></span><br><span class="line">        CLHNode preNode = tailNode.getAndSet(currNode);</span><br><span class="line">        <span class="comment">// 将刚获取的尾结点（前一线程的当前节点）付给当前线程的前继节点ThreadLocal</span></span><br><span class="line">        <span class="comment">// 【思考】这句代码也可以去掉吗，如果去掉有影响吗？</span></span><br><span class="line">        predNode.set(preNode);</span><br><span class="line">        <span class="comment">// 【1】若前继节点的locked状态为false，则表示获取到了锁，不用自旋等待；</span></span><br><span class="line">        <span class="comment">// 【2】若前继节点的locked状态为true，则表示前一线程获取到了锁或者正在等待，自旋等待</span></span><br><span class="line">        <span class="keyword">while</span> (preNode.locked) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;没能获取到锁，进行自旋等待。。。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 能执行到这里，说明当前线程获取到了锁</span></span><br><span class="line">        System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;获取到了锁！！！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 释放锁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取当前线程的当前节点</span></span><br><span class="line">        CLHNode node = curNode.get();</span><br><span class="line">        <span class="comment">// 进行解锁操作</span></span><br><span class="line">        <span class="comment">// 这里将locked至为false，此时执行了lock方法正在自旋等待的后继节点将会获取到锁</span></span><br><span class="line">        <span class="comment">// 【注意】而不是所有正在自旋等待的线程去并发竞争锁</span></span><br><span class="line">        node.locked = <span class="keyword">false</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;释放了锁！！！&quot;</span>);</span><br><span class="line">        <span class="comment">// 小伙伴们可以思考下，下面两句代码的作用是什么？？</span></span><br><span class="line">        CLHNode newCurNode = <span class="keyword">new</span> CLHNode();</span><br><span class="line">        curNode.set(newCurNode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 【优化】能提高GC效率和节省内存空间，请思考：这是为什么？</span></span><br><span class="line">        <span class="comment">// curNode.set(predNode.get());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="MCS锁"><a href="#MCS锁" class="headerlink" title="MCS锁"></a>MCS锁</h1><blockquote>
+<p>MCS自旋锁是一种基于单向链表的高性能、公平的自旋锁，申请加锁的线程只需要在本地变量上自旋，直接前驱负责通知其结束自旋，从而极大的减少了不必要的处理器缓存同步的次数，降低了总线和内存的开销。</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><img src="http://resources.ityizhan.net/4651321-be6bd4f326e3e71c" alt="MCS锁数据结构"></p>
+<ul>
+<li>每个线程持有一个自己的node，node有一个locked属性，true表示等待获取锁，false表示可以获取到锁，并且持有下一个node（后继者）的引用（可能存在）。</li>
+<li>线程在轮询自己node的locked状态，true表示锁被其他线程占用，等待获取锁，自旋。</li>
+<li>线程释放锁的时候，修改后继者（nextNode）的locked属性，通知后继结束自旋。</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MCSLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MCSNode</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 持有后继者的引用</span></span><br><span class="line">        MCSNode next;</span><br><span class="line">        <span class="comment">// 默认是在等待锁</span></span><br><span class="line">        <span class="keyword">boolean</span> locked = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">volatile</span> MCSNode tail;<span class="comment">// 指向最后一个申请锁的MCSNode</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicReferenceFieldUpdater&lt;MCSLock, MCSNode&gt; UPDATER = AtomicReferenceFieldUpdater</span><br><span class="line">            .newUpdater(MCSLock.class, MCSNode.class, <span class="string">&quot;tail&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">(MCSNode currentThreadMcsNode)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 更新tial为最新加入的线程节点，并取出之前的节点（也就是前驱）</span></span><br><span class="line">        MCSNode predecessor = UPDATER.getAndSet(<span class="keyword">this</span>, currentThreadMcsNode);<span class="comment">// step4</span></span><br><span class="line">        <span class="comment">// 前驱为空表示没有线程占用锁</span></span><br><span class="line">        <span class="keyword">if</span> (predecessor != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 将当前节点设置为前驱节点的后继者</span></span><br><span class="line">            predecessor.next = currentThreadMcsNode;<span class="comment">//step5</span></span><br><span class="line">            <span class="comment">// 轮询自己的isLocked属性</span></span><br><span class="line">            <span class="keyword">while</span> (currentThreadMcsNode.locked) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">(MCSNode currentThreadMcsNode)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// UPDATER.get(this) 获取最后加入的线程的node</span></span><br><span class="line">        <span class="comment">// 如果获取到的最后加入的node和当前node（currentThreadMcsNode）不相同，表示还有其他线程等待锁，直接修改后继者的isLocked属性。</span></span><br><span class="line">        <span class="comment">// 相同代表当前没其他有线程等待锁，进入下面的处理</span></span><br><span class="line">        <span class="keyword">if</span> (UPDATER.get(<span class="keyword">this</span>) == currentThreadMcsNode) &#123;<span class="comment">//step1</span></span><br><span class="line">            <span class="comment">// 这个时候可能会有其他线程又加入了进来，检查时候有人排在自己后面，currentThreadMcsNode.next 表示依然没有染排在自己后面</span></span><br><span class="line">            <span class="keyword">if</span> (currentThreadMcsNode.next == <span class="keyword">null</span>) &#123; <span class="comment">//step2</span></span><br><span class="line">                <span class="comment">// 将tail设置为空，如果返回true设置成功，如果返回false，表示设置失败（其他线程加入了进来，使得当前tail持有的节点不等于currentThreadMcsNode）</span></span><br><span class="line">                <span class="keyword">if</span> (UPDATER.compareAndSet(<span class="keyword">this</span>, currentThreadMcsNode, <span class="keyword">null</span>)) &#123;<span class="comment">// //step3</span></span><br><span class="line">                    <span class="comment">// 设置成功返回，没有其他线程等待锁</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 突然有其他线程加入，需要检测后继者是否有值，因为：step4执行完后，step5可能还没执行完</span></span><br><span class="line">                    <span class="keyword">while</span> (currentThreadMcsNode.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 修改后继者的isLocked,通知后继者结束自旋</span></span><br><span class="line">            currentThreadMcsNode.next.locked = <span class="keyword">false</span>;</span><br><span class="line">            currentThreadMcsNode.next = <span class="keyword">null</span>;<span class="comment">// for GC</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zfbskm.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wxskm.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+        
+<div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.ityizhan.net/simple/101050/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JUC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JUC//" class="article-tag-list-link color4">JUC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  <div class="article-card">
+	<div class="article-card-img">
+		<img src="/img/wxgzh.jpg" alt="程序驿站">
+	</div>
+	<div class="article-card-content">
+		<p><span>本文标题: </span><a href="http://www.ityizhan.net/simple/101050/" title="05.JUC核心篇：CLH锁和MCS锁" target="_blank">05.JUC核心篇：CLH锁和MCS锁</a></p>
+	    <p><span>文章作者: </span><a href="/" target="_blank">程序驿站</a></p>
+	    <p><span>发布时间: </span>2021-04-06</p>
+	    <p><span>最后更新: </span>2021-04-06</p>
+	    <p><span>版权声明: </span>本文为<a href="http://www.ityizhan.net">「程序驿站」</a>的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
+	    <p><span>本文链接: </span><a href="http://www.ityizhan.net/simple/101050/" title="05.JUC核心篇：CLH锁和MCS锁" target="_blank">http://www.ityizhan.net/simple/101050/</a></p>
+	</div>
+</div>
+  
+<nav id="article-nav">
+  
+    <a href="/simple/101040/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          04.JUC核心篇：CAS(Compare and Swap)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <script async src="/js/demo.js"></script>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category1 menu_button"></i>
+            <i class="icon-font icon-category2 menu_button"></i>
+            <a class="icon-font icon-category3" href="javascript:window.history.back();"></a>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content" id="content-menu">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CLH%E9%94%81"><span class="toc-number">1.</span> <span class="toc-text">CLH锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CLH%E9%94%81%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">CLH锁原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLH%E9%94%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">CLH锁代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MCS%E9%94%81"><span class="toc-number">2.</span> <span class="toc-text">MCS锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+
+   
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 程序驿站 <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">浙ICP备20022402号-2</a>
+    	</div>
+      	
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true,
+		root: "/",
+		innerArchive: true,
+		showTags: false
+	}
+</script>
+
+<script async src="/js/yilia-script.js"></script>
+<script async src="/./main.0cf68a.js"></script>
+<script async src="/./slider.e37972.js"></script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 100%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">源码分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JUC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">tools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IntelliJ IDEA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            3、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
