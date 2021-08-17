@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://resources.ityizhan.net/90ea093549782945f2c968403fdc39d415386.png">
 <meta property="og:image" content="http://resources.ityizhan.net/879edb4f06043d76cea27a3ff358cb1d45243.png">
 <meta property="article:published_time" content="2021-08-17T07:35:39.000Z">
-<meta property="article:modified_time" content="2021-08-17T07:37:44.785Z">
+<meta property="article:modified_time" content="2021-08-17T07:42:26.846Z">
 <meta property="article:author" content="程序驿站">
 <meta property="article:tag" content="JUC">
 <meta property="article:tag" content="线程池">
@@ -268,7 +268,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><p>线程池（Thread Pool）是一种基于池化思想管理线程的工具，经常出现在多线程服务器中，如MySQL。</p>
+        <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><span id="more"></span>
+
+<p>线程池（Thread Pool）是一种基于池化思想管理线程的工具，经常出现在多线程服务器中，如MySQL。</p>
 <p>线程过多会带来额外的开销，其中包括创建销毁线程的开销、调度线程的开销等等，同时也降低了计算机的整体性能。线程池维护多个线程，等待监督管理者分配可并发执行的任务。这种做法，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。</p>
 <h2 id="线程池的好处"><a href="#线程池的好处" class="headerlink" title="线程池的好处"></a>线程池的好处</h2><ul>
 <li><font color=#FF6600><strong>降低资源消耗：</strong></font>通过池化技术重复利用已创建的线程，降低线程创建和销毁造成的损耗。</li>
